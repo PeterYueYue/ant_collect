@@ -1,0 +1,147 @@
+.orderinfo {
+  width: 100%;
+  background-color: #f5f5f9;
+  position: relative;
+}
+.orderinfo .head {
+  background-color: #ffffff;
+  border-bottom: 0.01rem solid #dddddd;
+}
+.orderinfo .head .headback {
+  width: 0.3rem;
+  height: 0.3rem;
+  margin-right: -0.3rem;
+  border-top: 0.05rem solid #1b81d2;
+  border-right: 0.05rem solid #1b81d2;
+  margin-top: 0.3rem;
+  transform: rotateZ(-135deg);
+}
+.orderinfo .head span {
+  font-size: 0.32rem;
+  color: #1b81d2;
+  line-height: 0.88rem;
+  margin-left: 0.3rem;
+}
+.orderinfo .head h3 {
+  font-size: 0.36rem;
+  line-height: 0.88rem;
+  color: #000000;
+  margin-left: 1.8rem;
+}
+.orderinfo .userInfoBox {
+  background-color: #ffffff;
+}
+.orderinfo .userInfoBox .userInfo {
+  width: 100%;
+}
+.orderinfo .userInfoBox .userInfo .item {
+  width: 100%;
+  border-bottom: 0.01rem solid #dddddd;
+  margin-left: 0.2rem;
+  display: flex;
+}
+.orderinfo .userInfoBox .userInfo .item input {
+  width: 4.54rem;
+  line-height: 0.89rem;
+  font-size: 0.3rem;
+  color: #888888;
+  outline: none;
+}
+.orderinfo .userInfoBox .userInfo .item strong {
+  text-align: left;
+  width: 1.46rem;
+  color: #333333;
+  font-size: 0.34rem;
+  line-height: 0.9rem;
+  font-weight: normal;
+}
+.orderinfo .collectTimeAndPrice {
+  background-color: #ffffff;
+  margin-top: 0.2rem;
+}
+.orderinfo .collectTimeAndPrice .pickUp {
+  display: flex;
+  margin-left: 0.2rem;
+  border-bottom: 0.01rem solid #dddddd;
+}
+.orderinfo .collectTimeAndPrice .pickUp strong {
+  text-align: left;
+  width: 1.86rem;
+  color: #333333;
+  font-size: 0.34rem;
+  line-height: 0.9rem;
+  font-weight: normal;
+}
+.orderinfo .collectTimeAndPrice .pickUp time,
+.orderinfo .collectTimeAndPrice .pickUp span {
+  color: #333333;
+  font-size: 0.34rem;
+  line-height: 0.9rem;
+}
+.orderinfo .collectTimeAndPrice .pickUp .dataBlock {
+  width: 0.9rem;
+  height: 0.9rem;
+  margin-left: 2.1rem;
+}
+.orderinfo .collectTimeAndPrice .pickUp .dataBlock a {
+  display: block;
+  height: 55.5555555%;
+  width: 55.5555555%;
+  background: url('../timeb.png') no-repeat;
+  background-size: 100%;
+  float: right;
+  margin-top: 0.24rem;
+}
+.orderinfo .collectTimeAndPrice .estimatePrice {
+  margin-left: 0.2rem;
+  border-bottom: 0.01rem solid #dddddd;
+}
+.orderinfo .collectTimeAndPrice .estimatePrice strong {
+  text-align: left;
+  width: 1.86rem;
+  color: #333333;
+  font-size: 0.34rem;
+  line-height: 0.9rem;
+  font-weight: normal;
+}
+.orderinfo .collectTimeAndPrice .estimatePrice span {
+  color: #f4333c;
+  font-size: 0.34rem;
+  line-height: 0.9rem;
+  margin-right: 0.3rem;
+}
+.orderinfo .information {
+  margin-top: 0.15rem;
+  height: 0.46rem;
+  color: #666666;
+  font-size: 0.3rem;
+  line-height: 0.46rem;
+  margin-left: 0.3rem;
+  margin-right: 0.3rem;
+}
+.orderinfo .nextbutton {
+  width: 6.9rem;
+  height: 0.84rem;
+  color: #ffffff;
+  font-size: 0.36rem;
+  line-height: 0.84rem;
+  text-align: center;
+  background-color: #00a0e9;
+  margin: 0.5rem auto 0;
+  border-radius: 0.1rem;
+}
+.orderinfo .nextbutton a {
+  color: #ffffff;
+  display: block;
+}
+.orderinfo .bottomInformation {
+  width: 100%;
+  text-align: center;
+  height: 0.46rem;
+  color: #888888;
+  font-size: 0.28rem;
+  line-height: 0.46rem;
+  position: absolute;
+  left: 0;
+  bottom: 0.7rem;
+}
