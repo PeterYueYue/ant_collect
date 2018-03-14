@@ -3,29 +3,29 @@
   background: #fff;
   border-bottom: 0.01rem #dddddd solid;
 }
-.details_wrap_item h3 {
+.details_wrap_item .time {
   font-size: 0.32rem;
 }
 /* 平台已取消，已取消 */
-.details_wrap_item h3 span.cancel {
+.details_wrap_item .time span.cancel {
   float: right;
   font-size: 0.34rem;
   color: #f05a49;
 }
 /* 已完成，已接单 */
-.details_wrap_item h3 span.succeed {
+.details_wrap_item .time span.succeed {
   float: right;
   font-size: 0.34rem;
   color: #00a0e9;
 }
 /* 待接单 */
-.details_wrap_item h3 span.waiting {
+.details_wrap_item .time span.waiting {
   float: right;
   font-size: 0.34rem;
   color: #29ab91;
 }
 /* 已派单 */
-.details_wrap_item h3 span.complete {
+.details_wrap_item .time span.complete {
   float: right;
   font-size: 0.34rem;
   color: #ffb414;
@@ -33,7 +33,7 @@
 .details_wrap_item .date {
   font-size: 0.24rem;
   color: #888;
-  margin-top: 0.2rem;
+  margin-top: 0.1rem;
 }
 .details_wrap_item .content {
   overflow: hidden;
@@ -267,7 +267,7 @@ label {
 .details_shadow_code {
   width: 100%;
   height: 6.7rem;
-  position: absolute;
+  position: fixed;
   bottom: 0;
   background: #fff;
 }
@@ -306,7 +306,7 @@ label {
   text-align: center;
   margin-top: 0.6rem;
 }
-.details_shadow_evaluation .pic {
+.details_shadow_evaluation .evaStar {
   width: 4.1rem;
   overflow: hidden;
   position: absolute;
@@ -314,14 +314,29 @@ label {
   left: 50%;
   transform: translateX(-50%);
 }
-.details_shadow_evaluation .icon_star {
-  float: left;
+.details_shadow_evaluation .evaStar .star {
+  font-size: 0;
+  width: 4.1rem;
+}
+.details_shadow_evaluation .evaStar .star .star-item {
+  display: inline-block;
+  background-repeat: no-repeat;
   margin-left: 0.3rem;
   width: 0.56rem;
   height: 0.56rem;
+  background-size: 100%;
 }
-.details_shadow_evaluation .icon_star:first-child {
+.details_shadow_evaluation .evaStar .star .star-item:first-child {
   margin-left: 0;
+}
+.details_shadow_evaluation .evaStar .star .star-item.star-item.on {
+  background-image: url(../../assets/icon_star.png);
+}
+.details_shadow_evaluation .evaStar .star .star-item.star-item.half {
+  background-image: url(../../assets/icon_star.png);
+}
+.details_shadow_evaluation .evaStar .star .star-item.star-item.off {
+  background-image: url(../../assets/icon_star_hover.png);
 }
 .details_shadow_evaluation .text {
   box-sizing: border-box;

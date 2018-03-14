@@ -1,5 +1,6 @@
 .records_wrap {
   width: 100%;
+  background: #fff;
 }
 .records_wrap_top {
   position: relative;
@@ -16,7 +17,7 @@
   font-size: 0.36rem;
   color: #fff;
   position: absolute;
-  top: 0.2rem;
+  top: 0.5rem;
   left: 50%;
   transform: translateX(-50%);
 }

@@ -2,6 +2,9 @@ body {
   background: #f7f6fb;
   color: #333;
 }
+a {
+  color: #333;
+}
 .home_wrap {
   width: 100%;
 }
@@ -14,23 +17,23 @@ body {
   background: #fff;
   margin-top: 0.18rem;
 }
-.home_wrap_item h3 {
+.home_wrap_item .time {
   font-size: 0.28rem;
 }
 /* 待接单 */
-.home_wrap_item h3 span.waiting {
+.home_wrap_item .time span.waiting {
   float: right;
   font-size: 0.3rem;
   color: #29aa90;
 }
 /* 已派单 */
-.home_wrap_item h3 span.complete {
+.home_wrap_item .time span.complete {
   float: right;
   font-size: 0.3rem;
   color: #ffb414;
 }
 /* 已接单 */
-.home_wrap_item h3 span.already {
+.home_wrap_item .time span.already {
   float: right;
   font-size: 0.3rem;
   color: #00a0e9;

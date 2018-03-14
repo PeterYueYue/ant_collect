@@ -1,7 +1,7 @@
 <template>
   <div class="details_wrap">
     <div class="details_wrap_item">
-      <h3>取消时间：2017-9-11 12：22：30<span class="cancel">已取消</span></h3>
+      <div class="time">取消时间：2017-9-11 12：22：30<span class="cancel">已取消</span></div>
       <div class="date">时间：2017-9-11 12：22：30</div>
       <div class="content">
         <img src="@/assets/2.jpg" alt="" class="pic">
@@ -61,12 +61,10 @@
     <!-- 已完成状态弹窗 -->
     <div class="details_shadow_evaluation" v-if="showEvaluation">
       <div class="title">我们的服务您满意吗？</div>
-      <div class="pic">
-        <img src="@/assets/icon_star.png" alt="" class="icon_star">
-        <img src="@/assets/icon_star.png" alt="" class="icon_star">
-        <img src="@/assets/icon_star.png" alt="" class="icon_star">
-        <img src="@/assets/icon_star.png" alt="" class="icon_star">
-        <img src="@/assets/icon_star_hover.png" alt="" class="icon_star">
+      <div class="evaStar">
+        <ul class="star">
+        <li v-for="(itemClass,index) in itemClasses" :class="itemClass" class="star-item" @click="stars(index)" track-by="index"></li>
+        </ul>
       </div>
       <textarea name="" id="" class="text">我们的服务您还满意吗？</textarea>
       <div class="footer_btn" @click="closeEvaluation">提交</div>
@@ -83,6 +81,25 @@
         showOrders: false,
         showEvaluation: false,
         showCode: false,
+        score: 4,
+      }
+    },
+    computed:{ //计算属性
+      itemClasses(){
+        let result = []; // 返回的是一个数组,用来遍历输出星星
+        let score = Math.floor(this.score * 2 ) / 2; // 计算所有星星的数量
+        let hasDecimal = score % 1 !== 0; // 非整数星星判断
+        let integer = Math.floor(score); // 整数星星判断
+        for(let i=0;i<integer;i++){ // 整数星星使用on
+          result.push("on"); // 一个整数星星就push一个CLS_ON到数组
+        }
+        if(hasDecimal){ // 非整数星星使用half
+          result.push("half"); // 类似
+        } 
+        while(result.length < 5){// 余下的用无星星补全,使用off
+          result.push("off");
+        }
+        return result;
       }
     },
     methods:{
@@ -110,6 +127,9 @@
         this.showShadow = false;
         this.showCode = false;
       },
+      stars(index){
+        this.score = index + 1
+      }
     }
   }
 </script>
