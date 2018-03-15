@@ -45,7 +45,7 @@
     <div class="home_wrap_footer">
       <div class="footer_circle">我要<br/>回收</div>
       <router-link to="/records"><div class="footer_left"><img src="@/assets/icon_foot.png" alt=""><span>收呗足迹</span></div></router-link>
-      <router-link to="/orders"><div class="footer_right" @click="openOrders"><img src="@/assets/icon_record.png" alt=""><span>订单记录</span></div></router-link>
+      <router-link to="/orders"><div class="footer_right"><img src="@/assets/icon_record.png" alt=""><span>订单记录</span></div></router-link>
     </div>
   </div>
 </template>
@@ -54,5 +54,9 @@
   import '@/components/details/home.css'
   export default {
     name: "home",
+    mounted(){
+      const token = this.$route.query.token;
+      window.localStorage.setItem('token',token);
+    }
   }
 </script>

@@ -82,14 +82,12 @@
 .details_wrap_reason {
   overflow: hidden;
   padding: 0.3rem;
-  padding-bottom: 0;
   background: #fff;
   margin-top: 0.2rem;
 }
 .details_wrap_reason .why {
   position: relative;
   font-size: 0.34rem;
-  line-height: 0;
 }
 .details_wrap_reason .why .btn_view {
   position: absolute;
@@ -112,10 +110,12 @@
   word-wrap: break-word;
   word-break: break-all;
   overflow: hidden;
+  margin-top: 0.1rem;
 }
 .details_wrap_reason .tel {
   font-size: 0.3rem;
   padding-left: 0.1rem;
+  margin-top: 0.1rem;
 }
 .details_wrap_reason .tel .icon_tel {
   display: inline-block;
