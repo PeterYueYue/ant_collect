@@ -3,19 +3,11 @@
         <yd-cell-group>
             <yd-cell-item arrow>
                 <span slot="left">所在地区：</span>
-                <input slot="right" type="text" @click.stop="show2 = true" v-model="model2" readonly placeholder="请选择收货地址">
+                <input slot="right" type="text" @click.stop="show1 = true" v-model="model1" readonly placeholder="请选择收货地址">
             </yd-cell-item>
         </yd-cell-group>
 
-        <yd-cityselect
-                v-model="show2"
-                ref="cityselectDemo"
-                :callback="result2"
-                :items="district"
-                provance="上海"
-                city="上海市"
-                area="浦东新区"
-        ></yd-cityselect>
+        <yd-cityselect v-model="show1" :callback="result1" :items="district"></yd-cityselect>
     </div>
 </template>
 
@@ -26,17 +18,43 @@
     export default {
         data() {
             return {
-                show2: false,
-                model2: '上海 上海市 浦东新区',
-                district: District
+                show1: false,
+                model1: '',
+                district: [
+
+                {
+                    "v": "1",
+                    "n": "上海市",
+                    "c":  [
+                        {
+                           "v": "1",
+                            "n": "浦东区",
+                            "c": [
+                                {
+                                "v": "1",
+                                "n": "康桥镇",
+                                "c": [] 
+                        }
+                            ] 
+                        },
+                        {
+                           "v": "2",
+                            "n": "杨浦区",
+                            "c": [] 
+                        },
+                        {
+                           "v": "3",
+                            "n": "嘉定区",
+                            "c": [] 
+                        }
+                    ]
+                }
+                ]
             }
         },
         methods: {
-            result2(ret) {
+            result1(ret) {
                 this.model = ret.itemName1 + ' ' + ret.itemName2 + ' ' + ret.itemName3;
-
-
-                console.log(this.model)
             }
         }
     }
