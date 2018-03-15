@@ -3,30 +3,40 @@
         <yd-cell-group>
             <yd-cell-item arrow>
                 <span slot="left">所在地区：</span>
-                <input slot="right" type="text" @click.stop="show1 = true" v-model="model1" readonly placeholder="请选择你的地址">
+                <input slot="right" type="text" @click.stop="show2 = true" v-model="model2" readonly placeholder="请选择收货地址">
             </yd-cell-item>
         </yd-cell-group>
-        <yd-cityselect v-model="show1" :callback="result1" :items="district"></yd-cityselect>
+
+        <yd-cityselect
+                v-model="show2"
+                ref="cityselectDemo"
+                :callback="result2"
+                :items="district"
+                provance="上海"
+                city="上海市"
+                area="浦东新区"
+        ></yd-cityselect>
     </div>
 </template>
 
 <script type="text/babel">
-
-import '@/components/create/common/addressel.css'
     /* 前提是已经安装了 ydui-district */
     import District from 'ydui-district/dist/jd_province_city_area_id';
 
     export default {
         data() {
             return {
-                show1: false,
-                model1: '',
+                show2: false,
+                model2: '上海 上海市 浦东新区',
                 district: District
             }
         },
         methods: {
-            result1(ret) {
+            result2(ret) {
                 this.model = ret.itemName1 + ' ' + ret.itemName2 + ' ' + ret.itemName3;
+
+
+                console.log(this.model)
             }
         }
     }

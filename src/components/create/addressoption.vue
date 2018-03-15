@@ -85,6 +85,7 @@
 
 import '@/assets/createstyle/tool.css'
 import '@/assets/createstyle/addressopt.css'
+import api from '@/api/api.js'
 
 import addressele from '@/components/create/common/addressel.vue'
 import PromptBox from './common/promptbox.vue'
@@ -96,26 +97,13 @@ export default {
 
   created(){
       
-        if(navigator.geolocation) {
+       api.getAddRessList({
+            "app_key": "app_id_1",
+            "data": {
+                "id": 1
+            }
+        }).then((res)=>{console.log(res)}).catch((erro)=>{console.log(erro)})
 
-
-    navigator.geolocation.getCurrentPosition(
-        
-        function (position) {  
-            var longitude = position.coords.longitude;  
-            var latitude = position.coords.latitude;  
-            console.log(longitude)
-            console.log(latitude)
-            },
-            function (e) {
-             var msg = e.code;
-             var dd = e.message;
-             console.log(msg)
-             console.log(dd)
-        }
-      ) 
-   }
-            
             
         
   },
