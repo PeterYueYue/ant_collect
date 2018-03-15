@@ -13,9 +13,9 @@
     </div>
     <div class="details_wrap_time">上门时间：2018.01.24 星期一<span class="btn_cancel" @click="openOrders">取消订单</span></div>
     <div class="details_wrap_reason">
-      <!-- 已派单状态才有评价按钮 --> <p class="why">取消原因<span class="btn_view" @click="openEvaluation">评价/查看评价</span></p>
-      <!--<p class="answer">该物品估价值较低，暂不收取暂不收取暂不收取暂不收取暂不收取暂不收取暂不收取暂不收取暂不收取暂不收取暂不收取暂不收取暂不收取暂不收取</p>-->
-      <!-- 已派单状态才有 --><p class="tel"><img src="@/assets/icon_tel.png" alt="" class="icon_tel">联系电话：13565555555</p>
+      <!-- 已派单状态才有评价按钮 --> <div class="why">取消原因<span class="btn_view" @click="openEvaluation">评价/查看评价</span></div>
+      <!--<div class="answer">该物品估价值较低，暂不收取暂不收取暂不收取暂不收取暂不收取暂不收取暂不收取暂不收取暂不收取暂不收取暂不收取暂不收取暂不收取暂不收取</div>-->
+      <!-- 已派单状态才有 --><div class="tel"><img src="@/assets/icon_tel.png" alt="" class="icon_tel">联系电话：13565555555</div>
     </div>
     <div class="details_wrap_info">
       <div class="title">询价信息</div>
