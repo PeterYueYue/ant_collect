@@ -36,16 +36,17 @@
             <h5 class="reward">交易成功即可获得1次收呗信用</h5>
         </div>
         <!-- 获取用户的地址信息来判断位置 -->
-        <div class="hsdiqu clearfix" @click="getUserAddRess()"  >
+        <!-- <div class="hsdiqu clearfix" @click="getUserAddRess()"  >
             <h5 class="fl">回收地区</h5>
             <div class="text fl">
                 请选择你所在的区域...
                 <span class="fr"></span>
-
-                <button id="J_btn_location" class="btn btn-default">获取当前位置信息</button>
-                <pre id="J_output" class="output"></pre>
             </div>
-        </div>
+        </div> -->
+
+        <!-- 省 城市 区 三级联动下来菜单 -->
+        <addressele class="addele" ></addressele>
+
         <div class="next">
             <span class="add_info">找不到回收的小区?</span>
             <h1 id="demo"></h1>
@@ -53,17 +54,19 @@
                 <!-- <a href="">下一步</a> -->
                 <router-link  to="/typeSelect/typeclass" >下一步</router-link>
             </div>
+        
         </div>
         <!-- 如果选择的地址没有弹出此提示框 -->
         <!-- <prompt-box></prompt-box> -->
-        <!-- 省 城市 区 三级联动下来菜单 -->
-        <!-- <addressselect  ></addressselect> -->
+        
 
    
     
 
         
     </div>
+
+    
   
 
 
@@ -78,31 +81,51 @@
 
 
 
+
+
 import '@/assets/createstyle/tool.css'
 import '@/assets/createstyle/addressopt.css'
-import addressselect from './addressselect.vue'
+
+import addressele from '@/components/create/common/addressel.vue'
 import PromptBox from './common/promptbox.vue'
 export default {
   components:{
-      addressselect,
-      PromptBox
+      PromptBox,
+      addressele
+  },
+
+  created(){
+      
+        if(navigator.geolocation) {
+
+
+    navigator.geolocation.getCurrentPosition(
+        
+        function (position) {  
+            var longitude = position.coords.longitude;  
+            var latitude = position.coords.latitude;  
+            console.log(longitude)
+            console.log(latitude)
+            },
+            function (e) {
+             var msg = e.code;
+             var dd = e.message;
+             console.log(msg)
+             console.log(dd)
+        }
+      ) 
+   }
+            
+            
+        
   },
   methods:{
     backbtn(){ //执行返回上一个路由；
         this.$router.go(-1);
         
-    },
+    }
       
-    getUserAddRess(){  //获取位置信息
-        var btnLocation = document.querySelector('#J_btn_location');
-        var output = document.querySelector('#J_output');
-        btnLocation.addEventListener('click', function(){
-            ap.getLocation(function(res) {
-            output.innerHTML = JSON.stringify(res, undefined, '  ');
-            });
-        });
-      
-  }
+    
 }
 }
 </script>
