@@ -1,17 +1,50 @@
-// @rem:100rem;
-// .yd-cityselect-item{
-//     .yd-cityselect-nav{
-//         a{
-//             font-size:2 
-//         }
-//     }
+@rem:100rem;
 
-//     .yd-cityselect-item-box{
-//         a{
-//             height: 5s0/@rem;
-//             span{
-//                 font-size: 20/@rem;
-//             }
-//         }
-//     }
-// }
+
+.yd-cityselect-header{
+    .yd-cityselect-title{
+        height: 70/@rem;
+        line-height: 70/@rem;
+    }
+    
+    .yd-cityselect-nav{
+
+
+        a{
+            font-size: 30/@rem ;
+            height: 64/@rem;
+            line-height: 64/@rem;
+            text-decoration: none;
+        }
+    
+    }
+}
+
+.yd-cityselect-item{
+    .yd-cityselect-item-box{
+        a{
+            height: 60/@rem;
+        }
+        span{
+            font-size: 28/@rem;
+            max-height:none;
+            line-height: 30/@rem;
+        }
+        .yd-cityselect-item-active:after{
+            font-size: 20/@rem;
+
+        }
+        .yd-cell-right{
+            input{
+                color:red!important;
+
+            }
+        }
+    }
+    
+}
+.yd-cityselect {
+    .yd-cityselect-content{
+        padding-top:135/@rem; 
+    }
+}

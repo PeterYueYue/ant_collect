@@ -90,6 +90,7 @@ body {
 }
 .classify .content .linlei_list .item img {
   width: 100%;
+  height: 1.2rem;
   vertical-align: top;
 }
 .classify .content .linlei_list .item span {

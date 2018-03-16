@@ -54,12 +54,14 @@
       const token = this.$route.query.token;
       window.localStorage.setItem('token', token);
       //获取数据
-      api.getHome().then((res) => {
-        if(res.data.data==[]){
+      api.getHome({
+        "app_key": "app_id_1",
+      }).then((res) => {
+        console.log(res.data);
+        if(res.data.length===0){
           this.showList = false;
         }else{
-
-          res.data.data.map(items => {
+          res.data.map(items => {
             const status = items.statusPage;
             console.log(items.statusPage);
             switch (status) {
@@ -76,8 +78,7 @@
                 break;
             }
           });
-          console.log(res.data.data);
-          this.homeList = res.data.data;
+          this.homeList = res.data;
         }
 
       }).catch((erro) => {

@@ -28,9 +28,15 @@
     },
     mounted() {
       //获取数据
-      api.getOrders().then((res) => {
-        console.log(res.data.data.listOrder);
-        res.data.data.listOrder.map(items => {
+      api.getOrders({
+        "app_key": "app_id_1",
+        "data": {
+          "pageNumber": 1,
+          "pageSize": 20
+        },
+      }).then((res) => {
+        console.log(res.data.listOrder);
+        res.data.listOrder.map(items => {
           const status = items.statusPage;
           switch (status) {
             case '已接单':
@@ -52,7 +58,7 @@
               break;
           }
         });
-          this.ordersList = res.data.data.listOrder;
+          this.ordersList = res.data.listOrder;
       }).catch((erro) => {
         console.log(erro)
       })
