@@ -1,7 +1,7 @@
 <template>
   <div class="details_wrap">
     <div class="details_wrap_item">
-      <div class="time">取消时间：2017-9-11 12：22：30<span class="cancel">已取消</span></div>
+      <div class="time">订单号：2017-9-11 12：22：30<span class="cancel">已取消</span></div>
       <div class="date">时间：2017-9-11 12：22：30</div>
       <div class="content">
         <img src="@/assets/2.jpg" alt="" class="pic">
@@ -74,6 +74,8 @@
 
 <script>
   import '@/components/details/details.css'
+  import api from '@/api/api.js'
+
   export default {
     data(){
       return {
@@ -82,7 +84,22 @@
         showEvaluation: false,
         showCode: false,
         score: 4,
+        detailsList: {},
       }
+    },
+    mounted() {
+      //获取数据
+      api.getDetails({
+        "app_key": "app_id_1",
+        "data": {
+          "id": 1
+        },
+      }).then((res) => {
+        console.log(res.data);
+        // this.detailsList = res.data;
+      }).catch((erro) => {
+        console.log(erro)
+      })
     },
     computed:{ //计算属性
       itemClasses(){
