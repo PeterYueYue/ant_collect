@@ -1,0 +1,27 @@
+.yd-cityselect-header .yd-cityselect-title {
+  height: 0.7rem;
+  line-height: 0.7rem;
+}
+.yd-cityselect-header .yd-cityselect-nav a {
+  font-size: 0.3rem;
+  height: 0.64rem;
+  line-height: 0.64rem;
+  text-decoration: none;
+}
+.yd-cityselect-item .yd-cityselect-item-box a {
+  height: 0.6rem;
+}
+.yd-cityselect-item .yd-cityselect-item-box span {
+  font-size: 0.28rem;
+  max-height: none;
+  line-height: 0.3rem;
+}
+.yd-cityselect-item .yd-cityselect-item-box .yd-cityselect-item-active:after {
+  font-size: 0.2rem;
+}
+.yd-cityselect-item .yd-cityselect-item-box .yd-cell-right input {
+  color: red!important;
+}
+.yd-cityselect .yd-cityselect-content {
+  padding-top: 1.35rem;
+}

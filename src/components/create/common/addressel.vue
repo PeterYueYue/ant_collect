@@ -14,7 +14,7 @@
 <script type="text/babel">
     /* 前提是已经安装了 ydui-district */
     import District from 'ydui-district/dist/jd_province_city_area_id';
-
+    import '../common/addressel.css';
     export default {
         data() {
             return {
