@@ -80,7 +80,6 @@
           });
           this.homeList = res.data;
         }
-
       }).catch((erro) => {
         console.log(erro)
       })

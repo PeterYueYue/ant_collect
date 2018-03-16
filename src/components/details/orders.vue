@@ -36,6 +36,7 @@
         },
       }).then((res) => {
         console.log(res.data.listOrder);
+        this.ordersList = res.data.listOrder;
         res.data.listOrder.map(items => {
           const status = items.statusPage;
           switch (status) {
@@ -58,7 +59,6 @@
               break;
           }
         });
-          this.ordersList = res.data.listOrder;
       }).catch((erro) => {
         console.log(erro)
       })
