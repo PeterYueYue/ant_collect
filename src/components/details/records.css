@@ -13,11 +13,11 @@
   height: 1.91rem;
   top: 0;
 }
-.records_wrap_top h3 {
+.records_wrap_top div {
   font-size: 0.36rem;
   color: #fff;
   position: absolute;
-  top: 0.5rem;
+  top: 0.35rem;
   left: 50%;
   transform: translateX(-50%);
 }

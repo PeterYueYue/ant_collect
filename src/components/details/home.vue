@@ -58,21 +58,20 @@
         "app_key": "app_id_1",
       }).then((res) => {
         console.log(res.data);
-        if(res.data.length===0){
+        if (res.data.length === 0) {
           this.showList = false;
-        }else{
+        } else {
           res.data.map(items => {
             const status = items.statusPage;
-            console.log(items.statusPage);
             switch (status) {
               case '已接单':
-                items.statusClass= 'already';
+                items.statusClass = 'already';
                 break;
               case '已派单':
-                items.statusClass= 'complete';
+                items.statusClass = 'complete';
                 break;
               case '待接单':
-                items.statusClass= 'waiting';
+                items.statusClass = 'waiting';
                 break;
               default:
                 break;

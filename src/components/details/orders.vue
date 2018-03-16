@@ -23,7 +23,7 @@
   export default {
     data() {
       return {
-        ordersList:{},
+        ordersList: {},
       }
     },
     mounted() {
@@ -41,19 +41,19 @@
           const status = items.statusPage;
           switch (status) {
             case '已接单':
-              items.statusClass= 'already';
+              items.statusClass = 'already';
               break;
             case '已派单':
-              items.statusClass= 'complete';
+              items.statusClass = 'complete';
               break;
             case '待接单':
-              items.statusClass= 'waiting';
+              items.statusClass = 'waiting';
               break;
             case '已取消':
-              items.statusClass= 'cancel';
+              items.statusClass = 'cancel';
               break;
             case '已完成':
-              items.statusClass= 'succeed';
+              items.statusClass = 'succeed';
               break;
             default:
               break;
