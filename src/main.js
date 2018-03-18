@@ -12,7 +12,7 @@ import YDUI from 'vue-ydui';
 import {DateTime} from 'vue-ydui/dist/lib.rem/datetime';
 import 'vue-ydui/dist/ydui.rem.css';
 import 'vue-ydui/dist/ydui.base.css';
-import 'iview/dist/styles/iview.css';
+// import 'iview/dist/styles/iview.css';
 Vue.use(YDUI);
 Vue.use(iView);
 Vue.use(Vuex)

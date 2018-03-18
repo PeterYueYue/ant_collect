@@ -2,35 +2,38 @@
   <div class="records_wrap">
     <div class="records_wrap_top">
       <img src="@/assets/banner2.png" alt="" class="banner">
-      <h3>收呗足迹100</h3>
+      <div>收呗足迹{{documentNo}}</div>
       <div class="getbtn" @click="openWindow">如何获得收呗足迹<img src="@/assets/icon_mark.png" alt="" class="icon_mark"></div>
     </div>
     <div class="records_wrap_item">
       <ul>
-        <li class="active">收呗记录</li>
-        <li>兑换记录</li>
+        <li :class="{ active: showTab }" @click="openTab(true)">收呗记录</li>
+        <li :class="{ active: !showTab }" @click="openTab(false)">兑换记录</li>
         <span></span>
       </ul>
-      <div class="tab1">
+      <div class="tab1" v-if="showTab">
         <div class="remind">信用累计可能会延迟,请耐心等待....</div>
-        <div class="list1">
-          <div class="list_item">
-            <div class="name">回收空调<span>+10</span></div>
-            <div class="date">2017-07-28 08:30</div>
-          </div>
-          <div class="list_item">
-            <div class="name">回收空调<span>+10</span></div>
-            <div class="date">2017-07-28 08:30</div>
-          </div>
-          <div class="list_item">
-            <div class="name">回收空调<span>+10</span></div>
-            <div class="date">2017-07-28 08:30</div>
-          </div>
+        <div class="list">
+          <template v-for="item of recordsList">
+            <div class="list_item" v-if="item.type==='0'">
+              <div class="name">{{item.descrb}}<span>+{{item.point}}</span></div>
+              <div class="date">{{item.createDatePage}}</div>
+            </div>
+          </template>
         </div>
+        <div class="loading">加载完成</div>
       </div>
       <!-- tab切换 -->
-      <div class="tab2">
+      <div class="tab2" v-else>
         <div class="remind">截止昨天24:00前记录，仅限支付宝端兑换记录</div>
+        <div class="list">
+          <template v-for="item of recordsList">
+            <div class="list_item" v-if="item.type==='1'">
+              <div class="name">{{item.descrb}}<span>-{{item.point}}</span></div>
+              <div class="date">{{item.createDatePage}}</div>
+            </div>
+          </template>
+        </div>
         <div class="loading">加载完成</div>
       </div>
     </div>
@@ -47,24 +50,49 @@
 
 <script>
   import '@/components/details/records.css'
+  import api from '@/api/api.js'
+
   export default {
     name: "records",
-    data(){
+    data() {
       return {
         showShadow: false,
         showBox: false,
+        showList: true,
+        showTab: true,
+        recordsList: {},
+        documentNo: '',
       }
     },
-    methods:{
-      openWindow(){
+    methods: {
+      openWindow() {
         this.showShadow = true;
         this.showBox = true;
       },
-      closeBox(){
+      closeBox() {
         this.showShadow = false;
         this.showBox = false;
-      }
-    }
+      },
+      openTab(type) {
+        this.showTab = type;
+      },
+    },
+    mounted() {
+      //获取数据
+      api.getRecords({
+        "app_key": "app_id_1",
+        "data": {
+          "pageNumber": 1,
+          "pageSize": 20
+        },
+      }).then((res) => {
+        console.log(res.data);
+        this.documentNo = res.data[0];
+        this.recordsList = res.data[1];
+      }).catch((erro) => {
+        console.log(erro)
+      })
+    },
   }
 </script>
 

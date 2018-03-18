@@ -9,11 +9,29 @@
 .orders_wrap_item .time {
   font-size: 0.28rem;
 }
-/* 已取消，平台已取消 */
+/* 已取消 */
 .orders_wrap_item .time span.cancel {
   float: right;
   font-size: 0.34rem;
   color: #f05a49;
+}
+/* 待接单 */
+.orders_wrap_item .time span.waiting {
+  float: right;
+  font-size: 0.34rem;
+  color: #29aa90;
+}
+/* 已派单 */
+.orders_wrap_item .time span.complete {
+  float: right;
+  font-size: 0.34rem;
+  color: #ffb414;
+}
+/* 已接单 */
+.orders_wrap_item .time span.already {
+  float: right;
+  font-size: 0.34rem;
+  color: #00a0e9;
 }
 /* 已完成 */
 .orders_wrap_item .time span.succeed {
@@ -43,7 +61,7 @@
   color: #f4333c;
 }
 .orders_wrap_text {
-  width: 4rem;
+  width: 3.3rem;
   margin: 0.5rem auto 0;
   font-size: 0.28rem;
   color: #888;
