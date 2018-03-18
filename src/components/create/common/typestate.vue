@@ -16,3 +16,16 @@
     </ul>
 </div>
 </template>
+<script>
+export default {
+  
+    created(){
+
+        const {index}  = this.$route.params;
+        // this.$store.commit("changePointIndex",index)
+
+        
+    }
+}
+</script>
+

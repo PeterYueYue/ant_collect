@@ -1,27 +1,79 @@
-.yd-cityselect-header .yd-cityselect-title {
-  height: 0.7rem;
-  line-height: 0.7rem;
+.selectBox {
+  width: 100%;
 }
-.yd-cityselect-header .yd-cityselect-nav a {
-  font-size: 0.3rem;
-  height: 0.64rem;
-  line-height: 0.64rem;
-  text-decoration: none;
+.selectBox .head {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background-color: #ffffff;
+  border-bottom: 0.01rem solid #dddddd;
 }
-.yd-cityselect-item .yd-cityselect-item-box a {
-  height: 0.6rem;
+.selectBox .head .headback {
+  width: 0.3rem;
+  height: 0.3rem;
+  margin-right: -0.3rem;
+  border-top: 0.05rem solid #1b81d2;
+  border-right: 0.05rem solid #1b81d2;
+  margin-top: 0.3rem;
+  transform: rotateZ(-135deg);
 }
-.yd-cityselect-item .yd-cityselect-item-box span {
+.selectBox .head span {
+  font-size: 0.32rem;
+  color: #1b81d2;
+  line-height: 0.88rem;
+  margin-left: 0.3rem;
+}
+.selectBox .head h3 {
+  font-size: 0.36rem;
+  line-height: 0.88rem;
+  color: #000000;
+  margin-left: 1.8rem;
+}
+.selectBox .selConentbox {
+  position: fixed;
+  width: 100%;
+  background-color: #ffffff;
+  top: 0.9rem;
+  left: 0;
+}
+.selectBox .selConentbox .nowsel {
+  padding-left: 0.3rem;
+  line-height: 0.6rem;
   font-size: 0.28rem;
-  max-height: none;
-  line-height: 0.3rem;
+  background-color: #f5f5f9;
 }
-.yd-cityselect-item .yd-cityselect-item-box .yd-cityselect-item-active:after {
-  font-size: 0.2rem;
+.selectBox .selConentbox .selected {
+  display: flex;
+  padding: 0.2rem 0;
+  padding-left: 0.3rem;
+  border-bottom: 0.01rem solid #f5f5f9;
 }
-.yd-cityselect-item .yd-cityselect-item-box .yd-cell-right input {
-  color: red!important;
+.selectBox .selConentbox .selected span {
+  width: 1rem;
+  line-height: 50 / rem;
+  font-size: 0.28rem;
 }
-.yd-cityselect .yd-cityselect-content {
-  padding-top: 1.35rem;
+.selectBox .selConentbox .selected .active {
+  color: red;
+}
+.selectBox .elelist {
+  margin-top: 2.3rem;
+  padding-bottom: 1rem;
+  width: 100%;
+}
+.selectBox .elelist li {
+  height: 0.8rem;
+  line-height: 0.8rem;
+  letter-spacing: 0.05rem;
+  width: 100%;
+  text-align: left;
+  text-indent: 0.3rem;
+  font-size: 0.34rem;
+  border-bottom: 0.01rem solid #f5f5f9;
+  color: black;
+}
+.selectBox .elelist li a {
+  display: block;
+  color: #000000;
 }

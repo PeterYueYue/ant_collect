@@ -34,11 +34,9 @@
                     <li class="item  fl"
 
                     v-for="(item,index) in subList"
-                    @click="getAddressInfo(item.id)"
-                    
                     >
                         
-                        <router-link  to="/addressoption">
+                        <router-link  :to="'/addressoption/'+item.id">
                             <img :src=item.icon alt="">
                             <span>{{item.name}}</span>
                         </router-link>
@@ -81,6 +79,7 @@ export default {
             isId:'1',
             subList:'',
             isActive:'1'
+            
         }
     },
     created:function(){
@@ -89,7 +88,7 @@ export default {
             "data": {
             "level": "0"
             }
-        }).then((res)=>{this.menulist = res.data; console.log(res) }).catch((erro)=>{console.log(erro)});
+        }).then((res)=>{this.menulist = res.data;  }).catch((erro)=>{console.log(erro)});
 
         api.getSubList({
                 "app_key": "app_id_1",
@@ -106,26 +105,20 @@ export default {
         getList(id,index){
             this.isId = id;
             this.isActive = index;
-
-
-            console.log(this.isActive)
             api.getSubList({
                 "app_key": "app_id_1",
                 "data": {
                     "id": this.isId
                 }
             }).then((res)=>{ 
-
             this.subList = res.data;    
             }).catch((erro)=>{console.log(erro)})
-
-
-
         },
+        getAddressInfo(item,id){  //获取子集列表里的ID
+            this.$store.commit('getSubItemID',1)
 
-        getAddressInfo(id){
+            
 
-            console.log(id)
 
 
         }

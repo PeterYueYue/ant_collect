@@ -24,64 +24,46 @@
             </div>
         </div>
     </div>
-    <!-- <div class="classchange">
-        <h3 class="titlename">类型</h3>
-        <ul class="class_change_list clearfix">
-            <li class="fl">
-                <a href="">单门冰箱</a>
-            </li>
-            <li class="fl">
-                <a href="">120L-220L双门冰箱</a>
-            </li>
-            <li class="fl ">
-                <a class="active" href="">120L-220L双门冰箱</a>
-            </li>
-            <li class="fl">
-                <a href="">120L-220L双门冰箱</a>
-            </li>
-            <li class="fl">
-                <a href="">120L-220L双门冰箱</a>
-            </li>
-            <li class="fl">
-                <a href="">120L-220L双门冰箱</a>
-            </li>
-            <li class="fl">
-                <a href="">120L-220L双门冰箱</a>
-            </li>
-            <li class="fl">
-                <a href="">120L-220L双门冰箱</a>
-            </li>
-            <li class="fl">
-                <a href="">120L-220L双门冰箱</a>
-            </li>
-            <li class="fl">
-                <a href="">120L-220L双门冰箱</a>
-            </li>
-        </ul>
-    </div> -->
+    
     <!-- 嵌套 种类 年前 以及其他信息的组件 -->
     <transition  >
-        <router-view></router-view>
+        <router-view  ></router-view>
     </transition>
     <!-- 底部步骤按钮提示 -->
-    <schedule></schedule>
+    <schedule ></schedule>
   </div>
 
 
 
 </template>
 <script>
+import api from '@/api/api.js'
 import '@/assets/createstyle/tool.css'
 import '@/assets/createstyle/typeselect.css'
 import Schedule from '@/components/create/common/schedule.vue'
 export default {
+    data(){
+        return{
+            pointIdex:1,
+            
+        }
+    },
     components:{
         Schedule
+    },
+    created(){
+
+       
+
     },
     methods:{
         backbtn(){ //执行返回上一个路由；
           this.$router.go(-1);
           
+      },
+      changeIndex(){
+
+          console.log("aaaaaaa")
       }
     }
 }

@@ -5,6 +5,13 @@ import HelloWorld from '@/components/HelloWorld.vue'
 import ClassIfy from '@/components/create/classify.vue'
 // 地址选择
 import AddressOption from '@/components/create/addressoption.vue'
+// 地址选择  区域选择
+import addressel from '@/components/create/common/addressel.vue'
+
+import Areaelecte from '@/components/create/common/areaelecte.vue'
+import TownSelect from '@/components/create/common/townselect.vue'
+import Cellseletion from '@/components/create/common/cellseletion.vue'
+
 // 类型选择
 import TypeSelect from '@/components/create/typeselect.vue'
 // 类型选择    类型选择
@@ -72,22 +79,49 @@ export default new Router({
       component: AddressOption,   
     },
     {
+      path: '/addressel',
+      name: 'addressel',
+      component: addressel,  
+      children:[
+        {
+          path: 'townSelect',
+          name: 'TownSelect',
+          component: TownSelect,
+        },
+        {
+          path:'areaelecte',
+          name: 'Areaelecte',
+          component: Areaelecte,
+        },
+        {
+          path:'cellseletion',
+          name: 'Cellseletion',
+          component: Cellseletion,
+        }
+      ] 
+    },
+    {
+      path: '/addressoption/:id',
+      name: 'AddressOption',
+      component: AddressOption,   
+    },
+    {
       path: '/typeSelect',
       name: 'TypeSelect',
       component: TypeSelect,
       children:[
         {
-          path: 'typeclass',
+          path: 'typeclass/:index',
           name: 'TypeClass',
           component: TypeClass,
         },
         {
-          path: 'typeyear',
+          path: 'typeyear/:index',
           name: 'TypeYear',
           component: TypeYear,
         },
         {
-          path: 'typestate',
+          path: 'typestate/:index',
           name: 'Typestate',
           component: Typestate,
         },

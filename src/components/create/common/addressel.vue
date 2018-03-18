@@ -1,61 +1,39 @@
 <template>
-    <div>
-        <yd-cell-group>
-            <yd-cell-item arrow>
-                <span slot="left">所在地区：</span>
-                <input slot="right" type="text" @click.stop="show1 = true" v-model="model1" readonly placeholder="请选择收货地址">
-            </yd-cell-item>
-        </yd-cell-group>
-
-        <yd-cityselect v-model="show1" :callback="result1" :items="district"></yd-cityselect>
+    <div class="selectBox">
+        <header class="head clearfix">
+            <div @click="backbtn()" class="fl">
+                <span class="fl headback"></span>
+                <span class="fl">返回</span>
+            </div>
+            <h3 class="fl">区域选择</h3>
+        </header> 
+        <div class="selConentbox">
+            <div class="nowsel">当前选择</div>
+            <div class="selected">
+                <span class="active">上海市</span>
+                <span class="active">上海市</span>
+                <span class="active">上海市</span>
+                <span class="active">上海市</span>
+                <span class="active">上海市</span>
+                <span class="active">上海市</span>
+            </div>
+            
+        </div>
+        <router-view></router-view>
     </div>
+    
 </template>
-
-<script type="text/babel">
-    /* 前提是已经安装了 ydui-district */
-    import District from 'ydui-district/dist/jd_province_city_area_id';
-    import '../common/addressel.css';
-    export default {
-        data() {
-            return {
-                show1: false,
-                model1: '',
-                district: [
-
-                {
-                    "v": "1",
-                    "n": "上海市",
-                    "c":  [
-                        {
-                           "v": "1",
-                            "n": "浦东区",
-                            "c": [
-                                {
-                                "v": "1",
-                                "n": "康桥镇",
-                                "c": [] 
-                        }
-                            ] 
-                        },
-                        {
-                           "v": "2",
-                            "n": "杨浦区",
-                            "c": [] 
-                        },
-                        {
-                           "v": "3",
-                            "n": "嘉定区",
-                            "c": [] 
-                        }
-                    ]
-                }
-                ]
-            }
-        },
-        methods: {
-            result1(ret) {
-                this.model = ret.itemName1 + ' ' + ret.itemName2 + ' ' + ret.itemName3;
-            }
+<script>
+import '@/components/create/common/addressel.css'
+export default {
+  
+    methods:{
+        backbtn(){ //执行返回上一个路由；
+            this.$router.go(-1);
         }
     }
+
+}
 </script>
+
+

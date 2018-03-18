@@ -9,7 +9,7 @@
             <a href="">1-3年</a>
         </li>
         <li class="fl ">
-            <router-link to="/typeSelect/typestate" class="active">3-5年</router-link>
+            <router-link :to="'/typeSelect/typestate/' + pointIndex" class="active">3-5年</router-link>
             <!-- <a class="active" href="">3-5年</a> -->
         </li>
         <li class="fl">
@@ -21,6 +21,23 @@
     </ul>
 </div>
 </template>
+<script>
+export default {
+  
+  data(){
+      return{
+
+          pointIndex:3
+      }
+  },
+  created(){
+    const {index} = this.$route.params;
+    // this.$store.commit("changePointIndex",index)
+
+  }
+}
+</script>
+
 
 
 

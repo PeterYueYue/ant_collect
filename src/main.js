@@ -2,6 +2,9 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
+import Vuex from 'vuex'
+import store from './vuex/store'
+
 import router from './router'
 import iView from 'iview';
 import axios from 'axios'
@@ -12,7 +15,7 @@ import 'vue-ydui/dist/ydui.base.css';
 import 'iview/dist/styles/iview.css';
 Vue.use(YDUI);
 Vue.use(iView);
-// Vue.use(axios);
+Vue.use(Vuex)
 
 
 Vue.component(DateTime.name, DateTime);
@@ -22,6 +25,7 @@ Vue.config.productionTip = false;
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })
