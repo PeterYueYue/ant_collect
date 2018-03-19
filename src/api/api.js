@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// let base = 'http://192.168.1.122:8080';
-let base = 'http://101.132.165.211:8080'
+let base = 'http://192.168.1.122:8080';
+// let base = 'http://101.132.165.211:8080'
 
 //首页home
 const configGetHome = {
@@ -40,12 +40,12 @@ const configGetRecords = {
 }
 //订单详情
 const configGetDetails = {
-  "name": "order.orderlist",
+  "name": "order.detail",
   "format": "json",
-  "sign": "49964CA877CA34368E2BC8D6FD331D2B",
+  "sign": "B8BF37CA674C715F6406114DF5FF2059",
   "version": "1.0",
-  "nonce": "45418cfc-5ad2-4f48-8fe7-09ded212d999",
-  "timestamp": 1520579620270,
+  "nonce": "ed4fa93f-b19f-4f38-96c6-2e6647ccf254",
+  "timestamp": 1521424523443,
   "token": "3F3TEMH74565Q5QORHNPE76UZM6VT4JPWVV4OPUNTGAXLLRLC6B5GYU3LW34YHVNOEFL2LXPVT24UAJWCBI7NJ42KSYJ2KXG2OVQSA6ZMU4VMMCLQUKIRXAWTX2BD3K6MDOZDBJ4Q62CYGOB7DVAUP4CYQAHL3JSQRIG7P2UO77IZBN7W3E4RZK42VEEUWCHGAZLS7LGRB4EVIIYSQVYYSGAETEUZC4JUVVV2UDRKIOBGXURUGYCOGKTBVFLZYU2QFPF2G4I7DVNKBWCOFWBQDLZLJYEDSPIL6T46KLPZ4O2ZIFJROTQ"
 }
 let configGetClassify = {  //回收分类
