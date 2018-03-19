@@ -3,8 +3,8 @@
     <img src="@/assets/banner.jpg" alt="" class="home_wrap_banner">
 
     <!-- 有订单时 -->
-    <router-link to="/details" v-if="showList">
-      <div class="home_wrap_item" v-for="item of homeList">
+    <div class="home_wrap_item" v-for="item of homeList" v-if="showList">
+      <router-link :to="'/details/'+item.id">
         <div class="time">下单时间：{{item.createDatePage}}<span :class="item.statusClass">{{item.statusPage}}</span></div>
         <div class="content">
           <img :src="item.category.icon" alt="" class="pic">
@@ -13,8 +13,8 @@
             <div class="price">预估价格：<span>￥{{item.price}}</span></div>
           </div>
         </div>
-      </div>
-    </router-link>
+      </router-link>
+    </div>
 
     <!-- 无订单时 -->
     <div v-else>

@@ -1,7 +1,8 @@
 import axios from 'axios';
 
-let base = 'http://192.168.1.122:8080';
+// let base = 'http://192.168.1.122:8080';
 // let base = 'http://101.132.165.211:8080'
+let base = 'http://101.132.165.211:8080';
 
 //首页home
 const configGetHome = {

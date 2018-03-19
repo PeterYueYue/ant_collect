@@ -59,7 +59,7 @@ export default new Router({
       component: home
     },
     {
-      path: '/details',
+      path: '/details/:id',
       name: 'details',
       component: details
     },

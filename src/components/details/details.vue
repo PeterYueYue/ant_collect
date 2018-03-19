@@ -1,7 +1,7 @@
 <template>
   <div class="details_wrap">
     <div class="details_wrap_item">
-      <div class="time">订单号：{{detailsList.orderNo}}<span class="cancel">{{detailsList.statusPage}}</span></div>
+      <div class="time">订单号：{{detailsList.orderNo}}<span class="waiting">{{detailsList.statusPage}}</span></div>
       <div class="date">时间：{{detailsList.createDatePage}}</div>
       <div class="content">
         <img :src="detailsList.category.icon" alt="" class="pic">
@@ -16,7 +16,7 @@
     <div class="details_wrap_reason">
       <!--&lt;!&ndash; 已取消 &ndash;&gt;<div class="why">取消原因</div>-->
       <!--&lt;!&ndash; 已取消 &ndash;&gt;<div class="answer">{{detailsList.cancelReason}}</div>-->
-      <!-- 已完成，已派单，但已派单状态无评价按钮 --><div class="why">回收人员1号<span class="btn_view" @click="openEvaluation">评价/查看评价</span></div>
+      <!-- 已完成，已派单，但已派单状态无评价按钮 --><div class="why">回收人员{{detailsList.recyclerId}}号<span class="btn_view" @click="openEvaluation">评价/查看评价</span></div>
       <!-- 已完成，已派单 --><div class="tel"><img src="@/assets/icon_tel.png" alt="" class="icon_tel">联系电话：{{detailsList.tel}}</div>
       <!--&lt;!&ndash; 已接单 &ndash;&gt;<div class="why">派单详情</div>-->
       <!--&lt;!&ndash; 已接单 &ndash;&gt;<div class="answer">本订单已由爱回收有限公司接单，工作人员将在1-3个工作日内与您联系，请保持电话畅通</div>-->
@@ -94,7 +94,8 @@
       api.getDetails({
         "app_key": "app_id_1",
         "data": {
-          "id": 13,
+          // "id": this.$route.params
+          "id": '10',
           "isEvaluated": "0",
           "status": 0
         },
