@@ -32,9 +32,6 @@ export default {
         }
     },
     
-    computed: mapGetters({
-        // changeIndexNumber
-    }),
     watch:{
         '$route' : 'fn1'
     }

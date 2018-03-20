@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 // let base = 'http://192.168.1.122:8080';
-let base = 'http://101.132.165.211:8080'
+// let base = 'http://101.132.165.211:8080'
+let base ='http://101.132.165.211:8080'
 
 //首页home
 const configGetHome = {
@@ -98,6 +99,20 @@ let configAreaChildList = {  //根据父级取得所有子地区
     "token": "3F3TEMH74565Q5QORHNPE76UZM6VT4JPWVV4OPUNTGAXLLRLC6B5GYU3LW34YHVNOEFL2LXPVT24UAJWCBI7NJ42KSYJ2KXG2OVQSA27WG43UUZQ4FYKZJHIRFEZICJPMDOZDBJ4Q62CYZNTHZWYKZJLJJF26CDHC2YOP3DFQF3WXSANFSH6UM57BZXWRLGTJWO6UFBKPLK3LCLBCNNT4KSY3LFMDVRU5T3LPXGYXLYBXGMJ7YJCXH3AK3VZ5YI3WBZNCSIELCGPJCDITVJH4DVRSFXA7FKOGH7EFLLPZ4O2ZIFJROTQ"
 
 }
+
+
+
+let cofigGetCellSeleTion = {  //根据区域id，取得该区域下所有小区 ，仅支持上一级，不支持跨层
+  "name": "community.areaCommunity",
+  "format": "json",
+  "sign": "6313A5BCEC3EC1C9BA62B8904544782D",
+  "version": "1.0",
+  "nonce": "53832d71-cd35-48de-8784-d154edd924c7",
+  "timestamp": 1520832048762,
+  "token": "3F3TEMH74565Q5QORHNPE76UZM6VT4JPWVV4OPUNTGAXLLRLC6B5GYU3LW34YHVNOEFL2LXPVT24UAJWCBI7NJ42KSYJ2KXG2OVQSA27WG43UUZQ4FYKZJHIRFEZICJPMDOZDBJ4Q62CYZNTHZWYKZJLJJF26CDHC2YOP3DFQF3WXSANFSH6UM57BZXWRLGTJWO6UFBKPLK3LCLBCNNT4KSY3LFMDVRU5T3LPXGYXLYBXGMJ7YJCXH3AK3VZ5YI3WBZNCSIELCGPJCDITVJH4DVRSFXA7FKOGH7EFLLPZ4O2ZIFJROTQ"
+}
+
+
 let configCategoryAttrOption = {  //根据分类 的属性取 分类属性选项
     "name": "categoryAttrOption.listCategoryAttrOption",
     "format": "json",
@@ -106,6 +121,21 @@ let configCategoryAttrOption = {  //根据分类 的属性取 分类属性选项
     "nonce": "45418cfc-5ad2-4f48-8fe7-09ded212d999",
     "timestamp": 1520579620270,
     "token": "3F3TEMH74565Q5QORHNPE76UZM6VT4JPWVV4OPUNTGAXLLRLC6B5GYU3LW34YHVNOEFL2LXPVT24UCSPFZ54XJGBWOYJ2KXG2OVQSA66MVAOXZJJLEKKZJHIRFEZICJPR5IJ6KH3W7J2V2N2YG2KWONJV2L4ZAYE73TH4P7OCHDEVXGKNWGICHRB5QUBSCA6AZT24RQLJ374LVA4XBQ2V67K7NP4D56C7U3OG2SAK7CN6B6PMDHBT2ANYMRYZ5K3KRFLRSIYOSSQESPQSXVE73BPPBPSSIQTWILQLUDPZ4O2ZIFJROTQ"
+}
+
+
+let configGetAllattrOption = {
+
+  "name": "categoryAttr.listCategoryAttrs",
+  "format": "json",
+  "sign": "22C2AF422064DD456A2E81A5140AB310",
+  "version": "1.0",
+  "nonce": "83552b17-c9a4-4bfb-9ceb-ef31dc82faa9",
+  "timestamp": 1520496356565,
+  "token": "3F3TEMH74565Q5QORHNPE76UZM6VT4JPWVV4OPUNTGAXLLRLC6B5GYU3LW34YHVNOEFL2LXPVT24UAJWCBI7NJ42KSYJ2KXG2OVQSA6ZMU4VMMCLQUKIRXAWTX2BD3K6MDOZDBJ4Q62CYGOB7DVAUP4CYQAHL3JSQRIG7P2UO77IZBN7W3E4RZK42VEEUWCHGAZLS7LGRB4EVIIYSQVYYSGAETEUZC4JUVVV2UDRKIOBGXURUGYCOGKTBVFLZYU2QFPF2G4I7DVNKBWCOFWBQDLZLJYEDSPIL6T46KLPZ4O2ZIFJROTQ"
+
+
+
 }
 
 //回收分类
@@ -118,7 +148,7 @@ export default {
       let config =  Object.assign(configGetSubList,params)
       return axios.post(`${base}/ali/api`,config).then(res => res.data);
   },
-  getAddRessList(params){  //
+  getAddRessList(params){  //根据最近一次订单的地址，取出该地址。并且判断传入分类是否在该地址支持服务
       let config =  Object.assign(configAddressList,params)
       return axios.post(`${base}/ali/api`,config).then(res => res.data);
   },
@@ -130,10 +160,19 @@ export default {
       let config =  Object.assign(configAreaChildList,params)
       return axios.post(`${base}/ali/api`,config).then(res => res.data);
   },
+  getCellSeleTion(params){//根据区域id，取得该区域下所有小区 ，仅支持上一级，不支持跨层
+    let config =  Object.assign(cofigGetCellSeleTion,params)
+    return axios.post(`${base}/ali/api`,config).then(res => res.data);
+  },
   categoryAttrOption(params){  //根据分类 的属性取 分类属性选项
       let config =  Object.assign(configCategoryAttrOption,params)
       return axios.post(`${base}/ali/api`,config).then(res => res.data);
   },
+  getAllattrOption(params){  //根据分类id取得所有分类属性
+    let config =  Object.assign(configGetAllattrOption,params)
+    return axios.post(`${base}/ali/api`,config).then(res => res.data);
+  } 
+  ,
   getHome(params) {  //首页未完成订单
     let config = Object.assign(configGetHome, params);
     return axios.post(`${base}/ali/api`, config).then(res => res.data);

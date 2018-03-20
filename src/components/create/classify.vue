@@ -34,6 +34,8 @@
                     <li class="item  fl"
 
                     v-for="(item,index) in subList"
+
+                    @click="getAddressInfo(item,index)"
                     >
                         
                         <router-link  :to="'/addressoption/'+item.id">
@@ -97,7 +99,8 @@ export default {
                 }
             }).then((res)=>{ 
 
-            this.subList = res.data;    
+            this.subList = res.data;  
+            
             }).catch((erro)=>{console.log(erro)})
         
     },
@@ -115,12 +118,24 @@ export default {
             }).catch((erro)=>{console.log(erro)})
         },
         getAddressInfo(item,id){  //获取子集列表里的ID
-            this.$store.commit('getSubItemID',1)
-
             
+            console.log(item,"chakan")
+            //获取地址信息
+            api.getAddRessList({
+            "app_key": "app_id_1",
+                "data": {
+                    "id":1
+                }
+            }).then((res)=>{
+                if(!res.data.isExist){
 
-
-
+                    this.$store.dispatch('changeAddress',{address:'请选择你所在的区域...',name:''})
+                    // this.userAddressInfo = "请选择你所在的区域..."
+                }else{
+                    this.$store.dispatch('changeAddress',res)
+                    // this.userAddressInfo =res.data.address+res.data.name;
+                }
+            }).catch((erro)=>{console.log(erro)})  
         }
     }
   

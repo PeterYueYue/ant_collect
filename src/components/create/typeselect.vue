@@ -24,13 +24,31 @@
             </div>
         </div>
     </div>
-    
+
+    <div class="classchange"  v-for="item,index in dataList" v-if=" isShow == index"   >
+        <h3 class="titlename">{{item.name}}</h3>
+        <ul class="class_change_list clearfix">
+            
+            <li class="fl "   v-for="e,i in item.categoryAttrOptionList"    >
+                <!-- <router-link :to="'/typeSelect/typestate/' + pointIndex" class="active">{{e.name}}</router-link> -->
+                <a class="active"  @click="changeItem(e)" href="javascript:;">{{e.name}}</a>
+            </li>
+            
+        </ul>
+    </div>
+    <ul class="schedule">
+        <li v-for="item,index in dataList"  :class="{active :  index == isShow}"></li>
+        <!-- <li></li>
+        <li></li>
+        <li></li> -->
+    </ul>
     <!-- 嵌套 种类 年前 以及其他信息的组件 -->
-    <transition  >
-        <router-view  ></router-view>
-    </transition>
+    <!-- <transition  >
+        <router-view  ></router-view> -->
+    <!-- </transition> -->
     <!-- 底部步骤按钮提示 -->
-    <schedule ></schedule>
+    <!-- <schedule ></schedule> -->
+   <span> {{testStr}} aa</span>
   </div>
 
 
@@ -41,11 +59,14 @@ import api from '@/api/api.js'
 import '@/assets/createstyle/tool.css'
 import '@/assets/createstyle/typeselect.css'
 import Schedule from '@/components/create/common/schedule.vue'
+import { mapGetters } from 'vuex';
 export default {
     data(){
         return{
-            pointIdex:1,
-            
+            itemID:null,    //商品ID
+            dataList:null,  // 商品属性信息列表
+            isShow:0,       //判断第几个选项卡显示    
+            classInfo:null  //存储类型选择的信息
         }
     },
     components:{
@@ -53,19 +74,50 @@ export default {
     },
     created(){
 
-       
+        const {index} = this.$route.params;
+        this.itemID = index;
+        api.getAllattrOption({
+            "app_key": "app_id_1",
+            "data": {
+                "id": index,
+                "pageBean": {
+                "pageNumber": 1,
+                "pageSize": 20
+                }
+            }
+        }).then((res)=>{
+            this.dataList = res.data;
+            console.log(this.dataList ,"分类的信息")
+        }).catch((erro)=>{
+            console.log(erro)
+        })
 
     },
     methods:{
         backbtn(){ //执行返回上一个路由；
           this.$router.go(-1);
-          
+          this.isShow-=1;
       },
-      changeIndex(){
+      changeItem(e){
 
-          console.log("aaaaaaa")
+          if(this.isShow <this.dataList.length-1 ){
+                this.isShow+=1;
+                this.$router.push({path:'/typeSelect/'+this.isShow});
+
+          }else{
+
+              this.$router.push({path:'/uploadimage'})
+
+              console.log("可以重定向")
+          }
       }
+      
+      
+    },
+     computed:mapGetters({
+        // 映射 `this.doneCount` 为 `store.getters.doneTodosCount`
+            testStr: 'testStr'
+        })
     }
-}
 </script>
 

@@ -1,43 +1,37 @@
 <template>
   <ul class="elelist">
-        <li> <router-link to="/addressel/cellseletion">康桥镇</router-link> </li>
-        <li> <router-link to="/addressel/cellseletion">新桥镇</router-link> </li>
-        <li> <router-link to="/addressel/cellseletion">康桥镇</router-link> </li>
-        <li> <router-link to="/addressel/cellseletion">鹤沙航城镇</router-link> </li>  
-        <li> <router-link to="/addressel/cellseletion">康桥镇</router-link> </li>
-        <li> <router-link to="/addressel/cellseletion">新桥镇</router-link> </li>
-        <li> <router-link to="/addressel/cellseletion">康桥镇</router-link> </li>
-        <li> <router-link to="/addressel/cellseletion">鹤沙航城镇</router-link> </li>   
-        <li> <router-link to="/addressel/cellseletion">康桥镇</router-link> </li>
-        <li> <router-link to="/addressel/cellseletion">新桥镇</router-link> </li>
-        <li> <router-link to="/addressel/cellseletion">康桥镇</router-link> </li>
-        <li> <router-link to="/addressel/cellseletion">鹤沙航城镇</router-link> </li>   
-        <li> <router-link to="/addressel/cellseletion">康桥镇</router-link> </li>
-        <li> <router-link to="/addressel/cellseletion">新桥镇</router-link> </li>
-        <li> <router-link to="/addressel/cellseletion">康桥镇</router-link> </li>
-        <li> <router-link to="/addressel/cellseletion">鹤沙航城镇</router-link> </li>   
-        <li> <router-link to="/addressel/cellseletion">康桥镇</router-link> </li>
-        <li> <router-link to="/addressel/cellseletion">新桥镇</router-link> </li>
-        <li> <router-link to="/addressel/cellseletion">康桥镇</router-link> </li>
-        <li> <router-link to="/addressel/cellseletion">鹤沙航城镇</router-link> </li>   
-        <li> <router-link to="/addressel/cellseletion">康桥镇</router-link> </li>
-        <li> <router-link to="/addressel/cellseletion">新桥镇</router-link> </li>
-        <li> <router-link to="/addressel/cellseletion">康桥镇</router-link> </li>
-        <li> <router-link to="/addressel/cellseletion">鹤沙航城镇</router-link> </li>   
-        <li> <router-link to="/addressel/cellseletion">康桥镇</router-link> </li>
-        <li> <router-link to="/addressel/cellseletion">新桥镇</router-link> </li>
-        <li> <router-link to="/addressel/cellseletion">康桥镇</router-link> </li>
-        <li> <router-link to="/addressel/cellseletion">鹤沙航城镇</router-link> </li>   
-        <li> <router-link to="/addressel/cellseletion">康桥镇</router-link> </li>
-        <li> <router-link to="/addressel/cellseletion">新桥镇</router-link> </li>
-        <li> <router-link to="/addressel/cellseletion">康桥镇</router-link> </li>
-        <li> <router-link to="/addressel/cellseletion">鹤沙航城镇</router-link> </li>    
+        <li v-for="item in townList"> 
+            <router-link :to="'/addressel/cellseletion/'+item.area.id">{{item.area.areaName}}</router-link> 
+        </li>
+          
     </ul>
 </template>
 <script>
 import '@/components/create/common/addressel.css'
+import api from '@/api/api.js'
+
 export default {
-  
+
+    data(){
+        return{
+            townList:[]
+        }
+    },
+    created(){
+        //根据父级取得所有子地区
+        api.areaChildList({
+            "app_key": "app_id_1",
+            "data": {
+                "id": this.$route.params.areaItem,
+                "level": 1
+            }
+        }).then((res)=>{
+            this.townList = res.data
+            console.log(res,"根据父级取得所有子地区")
+        }).catch((erro)=>{
+            console.log(erro)
+        })
+    }
 }
 </script>
 

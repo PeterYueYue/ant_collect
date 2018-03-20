@@ -84,7 +84,7 @@ export default new Router({
       component: addressel,  
       children:[
         {
-          path: 'townSelect',
+          path: 'townSelect/:areaItem',
           name: 'TownSelect',
           component: TownSelect,
         },
@@ -94,7 +94,7 @@ export default new Router({
           component: Areaelecte,
         },
         {
-          path:'cellseletion',
+          path:'cellseletion/:itemAreaId',
           name: 'Cellseletion',
           component: Cellseletion,
         }
@@ -106,7 +106,7 @@ export default new Router({
       component: AddressOption,   
     },
     {
-      path: '/typeSelect',
+      path: '/typeSelect/:index',
       name: 'TypeSelect',
       component: TypeSelect,
       children:[

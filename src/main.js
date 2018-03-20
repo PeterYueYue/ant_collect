@@ -4,7 +4,6 @@ import Vue from 'vue'
 import App from './App'
 import Vuex from 'vuex'
 import store from './vuex/store'
-
 import router from './router'
 import iView from 'iview';
 import axios from 'axios'
@@ -13,6 +12,12 @@ import {DateTime} from 'vue-ydui/dist/lib.rem/datetime';
 import 'vue-ydui/dist/ydui.rem.css';
 import 'vue-ydui/dist/ydui.base.css';
 // import 'iview/dist/styles/iview.css';
+
+
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+
+Vue.use(ElementUI);
 Vue.use(YDUI);
 Vue.use(iView);
 Vue.use(Vuex)

@@ -2,37 +2,48 @@
 <div class="classchange">
     <h3 class="titlename">购买年限</h3>
     <ul class="class_change_list clearfix">
-        <li class="fl">
-            <a href="">一年内</a>
-        </li>
-        <li class="fl">
-            <a href="">1-3年</a>
-        </li>
-        <li class="fl ">
-            <router-link :to="'/typeSelect/typestate/' + pointIndex" class="active">3-5年</router-link>
+        
+        <li class="fl "   v-for="item in dataList" >
+            <router-link :to="'/typeSelect/typestate/' + pointIndex" class="active">{{item.name}}</router-link>
             <!-- <a class="active" href="">3-5年</a> -->
         </li>
-        <li class="fl">
+        <!-- <li class="fl">
             <a href="">6-8年</a>
         </li>
         <li class="fl">
             <a href="">8年以上</a>
-        </li>
+        </li> -->
     </ul>
 </div>
 </template>
 <script>
+import api from '@/api/api.js'
+
 export default {
   
   data(){
       return{
-
+          dataList:null,
           pointIndex:3
       }
   },
   created(){
     const {index} = this.$route.params;
-    // this.$store.commit("changePointIndex",index)
+    //  根据分类 的属性取 分类属性选项
+        api.categoryAttrOption({
+        "app_key": "app_id_1",
+        "data": {
+            "id": 1
+        }
+        }).then((res)=>{
+            this.dataList = res.data.reverse();
+
+            console.log(this.data)
+
+        }).catch((erro)=>{
+            console.log(erro)
+
+        })
 
   }
 }

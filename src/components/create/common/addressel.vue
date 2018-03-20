@@ -11,11 +11,8 @@
             <div class="nowsel">当前选择</div>
             <div class="selected">
                 <span class="active">上海市</span>
-                <span class="active">上海市</span>
-                <span class="active">上海市</span>
-                <span class="active">上海市</span>
-                <span class="active">上海市</span>
-                <span class="active">上海市</span>
+                <span class="active">浦东新区</span>
+                <span class="active">某某社区</span>
             </div>
             
         </div>

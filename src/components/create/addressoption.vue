@@ -30,7 +30,6 @@
                     <span>获得现金</span>
                     <!-- <div class="xuxian"></div> -->
                 </li>
-                
             </ul>
             <div class="icon_smaell"></div>
             <h5 class="reward">交易成功即可获得1次收呗信用</h5>
@@ -39,116 +38,77 @@
         <div class="hsdiqu clearfix" @click="getUserAddRess()"  >
             <h5 class="fl">回收地区</h5>
             <router-link class="text fl" to="/addressel/areaelecte"  >
-                请选择你所在的区域...
+                {{useraddress.address+useraddress.name}}
                 <span class="fr"></span>
             </router-link>
         </div>
-
-        <!-- 省 城市 区 三级联动下来菜单 -->
-        <!-- <addressele :userAddressInfo="userAddressInfo" :areaList ="areaList" class="addele" ></addressele> -->
-
         <div class="next">
             <span class="add_info">找不到回收的小区?</span>
             <h1 id="demo"></h1>
             <div class="nextbutton  ">
                 <!-- <a href="">下一步</a> -->
-                <router-link  :to="'/typeSelect/typeclass/'+1" >下一步</router-link>
+                <router-link  :to="'/typeSelect/'+id" >下一步</router-link>
             </div>
-        
-        </div>
 
+
+        </div>
         <!-- 如果选择的地址没有弹出此提示框 -->
         <!-- <prompt-box></prompt-box> -->
         
     </div>
-
-
 </template>
-
- <style>
-    .output{ display:block; max-width: 100%; overflow: auto}
-</style>
 <script>
 import '@/assets/createstyle/tool.css'
 import '@/assets/createstyle/addressopt.css'
 import api from '@/api/api.js'
-
-// import addressele from '@/components/create/common/addressel.vue'
 import PromptBox from './common/promptbox.vue'
+
+import {mapGetters} from 'vuex'  
 export default {
   components:{
       PromptBox
-
   },
     data(){
         return{
             itemID:'',
             userAddressInfo:{},
             areaList:'',
-
+            id:''
         }
     },
-
   created(){
+
     this.itemID = this.$store.state.msItemId;
-
-    
-
-    const {id} = this.$route.params;
-
-
-    
-    api.getAddRessList({
-        "app_key": "app_id_1",
-        "data": {id}
-    }).then((res)=>{
-
-        this.userAddressInfo =res;
-
-    }).catch((erro)=>{console.log(erro)})
-
-
-    // 获取所有的区
-    api.getAreaList({
+    const {id} = this.$route.params;   //商品ID
+    this.id = id;
+    api.getAllattrOption({
         "app_key": "app_id_1",
         "data": {
-            "id": 1,
-            "level": 0
+            "id": id,
+            "pageBean": {
+            "pageNumber": 1,
+            "pageSize": 20
+            }
         }
     }).then((res)=>{
-        
-        this.areaList = res;
-        console.log(res)
-
+        console.log(res,"分类的信息")
     }).catch((erro)=>{
         console.log(erro)
     })
-    //根据父级取得所有子地区
-    api.areaChildList({
-        "app_key": "app_id_1",
-        "data": {
-            "id": 2,
-            "level": 1
-        }
-    }).then((res)=>{
-        console.log(res,"根据父级取得所有子地区")
-    }).catch((erro)=>{
-        console.log(erro)
-    })
-            
+
+    
+
   },
+  computed: mapGetters({
+      useraddress : 'useraddress'
+  }),
   methods:{
     backbtn(){ //执行返回上一个路由；
         this.$router.go(-1);
     },
     getUserAddRess(){
-
-
         console.log("123")
     }
-
-      
-    
 }
 }
 </script>
