@@ -1,41 +1,41 @@
 <template>
   <div class="details_wrap">
     <div class="details_wrap_item">
-      <div class="time">订单号：2017-9-11 12：22：30<span class="cancel">已取消</span></div>
-      <div class="date">时间：2017-9-11 12：22：30</div>
+      <div class="time">订单号：{{detailsList.orderNo}}<span class="waiting">{{detailsList.statusPage}}</span></div>
+      <div class="date">时间：{{detailsList.createDatePage}}</div>
       <div class="content">
-        <img src="@/assets/2.jpg" alt="" class="pic">
+        <img :src="detailsList.category.icon" alt="" class="pic">
         <div>
-          <div class="name">商品名称</div>
-          <div class="price">预估价格：<span>￥39.9</span></div>
+          <div class="name">{{detailsList.category.name}}</div>
+          <div class="price">预估价格：<span>￥{{detailsList.price}}</span></div>
         </div>
       </div>
     </div>
-    <div class="details_wrap_time">上门时间：2018.01.24 星期一<span class="btn_cancel" @click="openOrders">取消订单</span></div>
+    <!-- 只有已完成状态无取消按钮 --><div class="details_wrap_time">{{detailsList.arrivalTimePage}}<span class="btn_cancel" @click="openOrders">取消订单</span></div>
+    <!-- 待接单状态无此div -->
     <div class="details_wrap_reason">
-      <!-- 已派单状态才有评价按钮 --> <div class="why">取消原因<span class="btn_view" @click="openEvaluation">评价/查看评价</span></div>
-      <!--<div class="answer">该物品估价值较低，暂不收取暂不收取暂不收取暂不收取暂不收取暂不收取暂不收取暂不收取暂不收取暂不收取暂不收取暂不收取暂不收取暂不收取</div>-->
-      <!-- 已派单状态才有 --><div class="tel"><img src="@/assets/icon_tel.png" alt="" class="icon_tel">联系电话：13565555555</div>
+      <!--&lt;!&ndash; 已取消 &ndash;&gt;<div class="why">取消原因</div>-->
+      <!--&lt;!&ndash; 已取消 &ndash;&gt;<div class="answer">{{detailsList.cancelReason}}</div>-->
+      <!-- 已完成，已派单，但已派单状态无评价按钮 --><div class="why">回收人员{{detailsList.recyclerId}}号<span class="btn_view" @click="openEvaluation">评价/查看评价</span></div>
+      <!-- 已完成，已派单 --><div class="tel"><img src="@/assets/icon_tel.png" alt="" class="icon_tel">联系电话：{{detailsList.tel}}</div>
+      <!--&lt;!&ndash; 已接单 &ndash;&gt;<div class="why">派单详情</div>-->
+      <!--&lt;!&ndash; 已接单 &ndash;&gt;<div class="answer">本订单已由爱回收有限公司接单，工作人员将在1-3个工作日内与您联系，请保持电话畅通</div>-->
     </div>
     <div class="details_wrap_info">
       <div class="title">询价信息</div>
       <div class="picture">
-        <img src="@/assets/2.jpg" alt="">
-        <img src="@/assets/2.jpg" alt="">
-        <img src="@/assets/2.jpg" alt="">
+        <img :src="pic.picUrl" alt="" v-for="pic of detailsPic">
       </div>
       <div class="description">回收物描述字数有限制，0~120字描述</div>
       <div class="lable">
-        <span>120l-220l双门冰箱</span>
-        <span>120l-220l双门冰箱</span>
-        <span>120l-220l双门冰箱</span>
+        <span v-for="des of detailsDes">{{des.categoryAttrOpptionName}}</span>
       </div>
     </div>
     <div class="details_wrap_belongs">
       <div class="text">本服务由爱回收有限公司提供</div>
       <div class="text">400-8288-999</div>
     </div>
-    <!-- 已派单状态才有 --><div class="details_wrap_footbtn" @click="openCode">确认交易</div>
+    <!--&lt;!&ndash; 已派单状态才有 &ndash;&gt;<div class="details_wrap_footbtn" @click="openCode">确认交易</div>-->
     <!-- 取消理由弹窗 -->
     <div class="details_shadow" v-if="showShadow"></div>
     <div class="details_shadow_box" v-if="showOrders">
@@ -85,6 +85,8 @@
         showCode: false,
         score: 4,
         detailsList: {},
+        detailsPic: {},
+        detailsDes: {},
       }
     },
     mounted() {
@@ -92,11 +94,38 @@
       api.getDetails({
         "app_key": "app_id_1",
         "data": {
-          "id": 1
+          // "id": this.$route.params
+          "id": '10',
+          "isEvaluated": "0",
+          "status": 0
         },
       }).then((res) => {
         console.log(res.data);
-        // this.detailsList = res.data;
+        // res.data.order.map(detailsList => {
+        //   const status = detailsList.statusPage;
+        //   switch (status) {
+        //     case '已接单':
+        //       detailsList.statusClass = 'already';
+        //       break;
+        //     case '已派单':
+        //       detailsList.statusClass = 'complete';
+        //       break;
+        //     case '待接单':
+        //       detailsList.statusClass = 'waiting';
+        //       break;
+        //     case '已取消':
+        //       detailsList.statusClass = 'cancel';
+        //       break;
+        //     case '已完成':
+        //       detailsList.statusClass = 'succeed';
+        //       break;
+        //     default:
+        //       break;
+        //   }
+        // });
+        this.detailsList = res.data.order;
+        this.detailsPic = res.data.orderPicList;
+        this.detailsDes = res.data.OrderItemList;
       }).catch((erro) => {
         console.log(erro)
       })
