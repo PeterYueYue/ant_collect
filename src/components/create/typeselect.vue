@@ -102,14 +102,13 @@ export default {
         },
         changeItem(e,itemInfo){
             if(this.isShow <this.dataList.length-1 ){
-
-                    
-                console.log(itemInfo,'xinxi')
-                console.log('进来了')   
+                console.log(e,'xinxi')
+                this.$store.dispatch('changeStatisticsPrice',e)
                 this.isShow+=1;
             }else{
-              this.$router.push({path:'/uploadimage'})
-              console.log("可以重定向")
+                this.$store.dispatch('changeStatisticsPrice',e)  //再最后跳转前再执行一次；
+                this.$router.push({path:'/uploadimage'})
+                console.log("可以重定向")
           }
       } 
       

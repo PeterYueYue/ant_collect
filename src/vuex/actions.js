@@ -24,3 +24,9 @@ export const changeSelected            =  ({commit}, data)  =>{  //选择地址 
 export const changeSelectedSubdistyict = ({commit}, data)   =>{
     commit(types.Change_Selected_Subdistyict, data)
 }
+export const changeStatisticsPrice = ({commit}, data)   =>{
+    commit(types.Change_StatisticsPrice, data)
+}
+export const changeFuturePrice = ({commit}, data)   =>{
+    commit(types.Change_Future_Price, data)
+}

@@ -18,8 +18,10 @@ export default new Vuex.Store({
       selectedInfo            : {
         areaItem              : '', //行政区域信息；object
         subdistyictItem       : '',
-        cellseletionItem      : ''
+        cellseletionItem      : '',
       },  //用来存储 地址选择 已选择信息
+      statisticsPrice         :'' ,//搜集商品属性里的价格指数 来计算预估价格
+      futurePrice             :'', //预估价格
       commodityInformation:{  //这里存储商品的详细信息
       }
     },  
@@ -47,6 +49,12 @@ export default new Vuex.Store({
       },
       Change_Selected_Subdistyict(state, data){
         this.state.selectedInfo.subdistyictItem = data.area;
+      },
+      Change_StatisticsPrice(state, data){   // 搜集预估价格信息
+        this.state.statisticsPrice = this.state.statisticsPrice.concat(data.price,',')
+      },
+      Change_Future_Price(state, data){    //改变预估价信息
+          this.state.futurePrice = data
       }
     },
     plugins: [createPersistedState({storage: window.sessionStorage})]

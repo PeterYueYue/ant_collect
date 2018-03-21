@@ -138,6 +138,25 @@ let configGetAllattrOption = {
 
 
 }
+let configUpLoader    ={
+  "name": "util.upload",
+  "format": "json",
+  "version": "1.0",
+  "token": "3F3TEMH74565Q5QORHNPE76UZM6VT4JPWVV4OPUNTGAXLLRLC6B5GYU3LW34YHVNOEFL2LXPVT24UAJWCBI7NJ42KSYJ2KXG2OVQSA6ZMU4VMMCLQUKIRXAWTX2BD3K6MDOZDBJ4Q62CYGOB7DVAUP4CYQAHL3JSQRIG7P2UO77IZBN7W3E4RZK42VEEUWCHGAZLS7LGRB4EVIIYSQVYYSGAETEUZC4JUVVV2UDRKIOBGXURUGYCOGKTBVFLZYU2QFPF2G4I7DVNKBWCOFWBQDLZLJYEDSPIL6T46KLPZ4O2ZIFJROTQ"
+
+}
+
+let configFturePrices ={   //请求预估价格
+  "name": "categoryAttr.computeValue",
+  "format": "json",
+  "sign": "50A96A5A5CB4FCCEDCE5BE844F410ED1",
+  "version": "1.0",
+  "nonce": "11fb0dbe-3816-467d-80a3-7c35558a94ef",
+  "timestamp": 1521595483415,
+  "token": "3F3TEMH74565Q5QORHNPE76UZM6VT4JPWVV4OPUNTGAXLLRLC6B5GYU3LW34YHVNOEFL2LXPVT24UAJWCBI7NJ42KSYJ2KXG2OVQSAZDS7JPG2VEDPHQF5B6LK5Z4PJVR5IJ6KH3W7J2U4ZNALJDUX3WZRHGC34PM6DGMLT6PDH6PDB6M36Q7UTPLQCGK5JFQOAU6U24HDLV3U3UL5IQAVG7DK3IZ7V27DR2J7QGQEPOPPYOOD36DCCFVFMOMQ7I5CPPRZ3TMHJVO76TA47LIH34GZTTU253CR7GYADPZ4O2ZIFJROTQ"
+
+
+}
 
 //回收分类
 export default {
@@ -171,6 +190,17 @@ export default {
   },
   getAllattrOption(params){  //根据分类id取得所有分类属性
     let config =  Object.assign(configGetAllattrOption,params)
+    return axios.post(`${base}/ali/api`,config).then(res => res.data);
+  },
+  
+  upLoader(params){  //拍照上传 获取图片链接地址；
+
+    let config =  Object.assign(configUpLoader,params)
+    return axios.post(`${base}/ali/api`,config).then(res => res.data);
+
+  },
+  futurePrices(params){   //请求商品的预估价格
+    let config =  Object.assign(configFturePrices,params)
     return axios.post(`${base}/ali/api`,config).then(res => res.data);
   } 
   ,

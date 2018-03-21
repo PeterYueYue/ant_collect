@@ -46,12 +46,14 @@
 
             <h4>回收物品描述</h4>
             <div class="textarea_box">
-                <textarea rows="3" maxlength="150" placeholder="请输入文字" cols="20">
+                <textarea rows="3" maxlength="150"  v-model="textareaValue" placeholder="请输入文字" cols="20" 
+                
+                @keydown= "textCounter(textareaValue)" @keyup= "textCounter(textareaValue)" >
                 
                 </textarea>
-                <span>0/150</span>
+                <span>{{textareaValue,length}}/150</span>
             </div>
-            <div class="nextbutton  ">
+            <div class="nextbutton "  @click="getTextareaValue"  >
                 <router-link  to="/estimate" >马上询价</router-link>
             </div>
         </div>
@@ -67,12 +69,14 @@
 }
 </style>
 <script>
-import Exif from "exif-js";
+// import Exif from "exif-js";
+import api from '@/api/api.js'
 import "@/assets/createstyle/uploadimage.css";
 export default {
   data() {
     return {
-      headerImage: ""
+      headerImage   : "",
+      textareaValue : ''   //回收物品描述问文字
     };
   },
   methods: {
@@ -80,6 +84,17 @@ export default {
       //执行返回上一个路由；
       this.$router.go(-1);
       
+    },
+    textCounter(message){
+
+
+      console.log(message)
+
+    },
+    getTextareaValue(){
+
+      console.log(this.textareaValue)
+
     },
     upload(e) {
       let files = e.target.files || e.dataTransfer.files;
@@ -118,8 +133,14 @@ export default {
     postImg() {
       //这里写接口
 
+      api.upLoader({
+        
+        
+      }).then((res)=>{
 
-      console.log(this.headerImage)
+        console.log(res,"有咩有图片")
+      })
+
     },
     rotateImg(img, direction, canvas){
       //最小与最大旋转方向，图片旋转4次后回到原方向
