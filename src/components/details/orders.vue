@@ -52,6 +52,9 @@
             case '已取消':
               items.statusClass = 'cancel';
               break;
+            case '平台已取消':
+              items.statusClass = 'cancel';
+              break;
             case '已完成':
               items.statusClass = 'succeed';
               break;
