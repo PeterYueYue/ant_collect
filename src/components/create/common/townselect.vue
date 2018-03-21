@@ -1,6 +1,6 @@
 <template>
   <ul class="elelist">
-        <li v-for="item in townList"> 
+        <li v-for="item in townList"  @click="changeSelectedSubdistyict(item)"  > 
             <router-link :to="'/addressel/cellseletion/'+item.area.id">{{item.area.areaName}}</router-link> 
         </li>
           
@@ -31,6 +31,11 @@ export default {
         }).catch((erro)=>{
             console.log(erro)
         })
+    },
+    methods:{
+        changeSelectedSubdistyict(item){
+            this.$store.dispatch('changeSelectedSubdistyict',item)
+        }
     }
 }
 </script>

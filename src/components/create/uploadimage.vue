@@ -79,6 +79,7 @@ export default {
     backbtn() {
       //执行返回上一个路由；
       this.$router.go(-1);
+      
     },
     upload(e) {
       let files = e.target.files || e.dataTransfer.files;

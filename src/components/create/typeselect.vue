@@ -9,29 +9,29 @@
     </header>
     <div class="callbackinfo">
         <div class="imgbox">
-            <img class="" src="@/assets/icebox.png" alt="">
+            <img class="" :src="addRessId.icon" alt="">
         </div>
         <div class=" information ">
-            <h5>商品名称</h5>
+            <h5>{{addRessId.name}}</h5>
             <div class="recovery_price">
                 平均回收价:
                 <span class="young">
                     ￥
                     <span>
-                        39.9
+                        {{addRessId.price}}
                     </span>
                 </span>
             </div>
         </div>
     </div>
 
-    <div class="classchange"  v-for="item,index in dataList" v-if=" isShow == index"   >
+    <div class="classchange"  v-for="item,index in dataList" v-if="    isShow == index"   >
         <h3 class="titlename">{{item.name}}</h3>
         <ul class="class_change_list clearfix">
             
             <li class="fl "   v-for="e,i in item.categoryAttrOptionList"    >
                 <!-- <router-link :to="'/typeSelect/typestate/' + pointIndex" class="active">{{e.name}}</router-link> -->
-                <a class="active"  @click="changeItem(e)" href="javascript:;">{{e.name}}</a>
+                <a class="active"  @click="changeItem(e,{item,index})" href="javascript:;">{{e.name}}</a>
             </li>
             
         </ul>
@@ -48,10 +48,7 @@
     <!-- </transition> -->
     <!-- 底部步骤按钮提示 -->
     <!-- <schedule ></schedule> -->
-   <span> {{testStr}} aa</span>
   </div>
-
-
 
 </template>
 <script>
@@ -72,14 +69,21 @@ export default {
     components:{
         Schedule
     },
+    computed:mapGetters({
+        // 映射 `this.doneCount` 为 `store.getters.doneTodosCount`
+        testStr         : 'testStr',
+        useraddress     : 'useraddress',  //地址信息
+        isShowMeassage  : 'isShowMeassage',  //控制选不到已服务的小区的提示框
+        addRessId       : 'addRessId',    //进入地址组件关联的ID
+        isShowForState  : 'isShowForState' //
+    }),
     created(){
-
         const {index} = this.$route.params;
-        this.itemID = index;
+        this.itemID = index
         api.getAllattrOption({
             "app_key": "app_id_1",
             "data": {
-                "id": index,
+                "id": this.addRessId.id,
                 "pageBean": {
                 "pageNumber": 1,
                 "pageSize": 20
@@ -87,37 +91,30 @@ export default {
             }
         }).then((res)=>{
             this.dataList = res.data;
-            console.log(this.dataList ,"分类的信息")
         }).catch((erro)=>{
             console.log(erro)
         })
-
     },
     methods:{
         backbtn(){ //执行返回上一个路由；
           this.$router.go(-1);
-          this.isShow-=1;
-      },
-      changeItem(e){
+          this.isShow-=1; 
+        },
+        changeItem(e,itemInfo){
+            if(this.isShow <this.dataList.length-1 ){
 
-          if(this.isShow <this.dataList.length-1 ){
+                    
+                console.log(itemInfo,'xinxi')
+                console.log('进来了')   
                 this.isShow+=1;
-                this.$router.push({path:'/typeSelect/'+this.isShow});
-
-          }else{
-
+            }else{
               this.$router.push({path:'/uploadimage'})
-
               console.log("可以重定向")
           }
-      }
+      } 
       
-      
-    },
-     computed:mapGetters({
-        // 映射 `this.doneCount` 为 `store.getters.doneTodosCount`
-            testStr: 'testStr'
-        })
+    }
+     
     }
 </script>
 

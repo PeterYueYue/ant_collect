@@ -118,8 +118,7 @@ export default {
             }).catch((erro)=>{console.log(erro)})
         },
         getAddressInfo(item,id){  //获取子集列表里的ID
-            
-            console.log(item,"chakan")
+            this.$store.dispatch('setAddRessId',item)
             //获取地址信息
             api.getAddRessList({
             "app_key": "app_id_1",
@@ -127,14 +126,7 @@ export default {
                     "id":1
                 }
             }).then((res)=>{
-                if(!res.data.isExist){
-
-                    this.$store.dispatch('changeAddress',{address:'请选择你所在的区域...',name:''})
-                    // this.userAddressInfo = "请选择你所在的区域..."
-                }else{
-                    this.$store.dispatch('changeAddress',res)
-                    // this.userAddressInfo =res.data.address+res.data.name;
-                }
+                this.$store.dispatch('changeAddress',res)
             }).catch((erro)=>{console.log(erro)})  
         }
     }

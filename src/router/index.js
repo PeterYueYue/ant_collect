@@ -109,25 +109,6 @@ export default new Router({
       path: '/typeSelect/:index',
       name: 'TypeSelect',
       component: TypeSelect,
-      children:[
-        {
-          path: 'typeclass/:index',
-          name: 'TypeClass',
-          component: TypeClass,
-        },
-        {
-          path: 'typeyear/:index',
-          name: 'TypeYear',
-          component: TypeYear,
-        },
-        {
-          path: 'typestate/:index',
-          name: 'Typestate',
-          component: Typestate,
-        },
-        
-      ]
-       
     },
     {
       path:'/uploadimage',

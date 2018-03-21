@@ -1,6 +1,6 @@
 <template>
     <ul class="elelist">
-        <li v-for="item in areaList">
+        <li   v-for="item in areaList"   @click="changeSelected(item)"    >
              <router-link :to="'/addressel/townSelect/'+item.id">{{item.areaName}}</router-link> 
         </li>
         
@@ -19,9 +19,7 @@ export default {
             areaList:[]
         }
     },
-
     created(){
-
         // 获取所有的区
         api.getAreaList({
             "app_key": "app_id_1",
@@ -30,13 +28,16 @@ export default {
                 "level": 0
             }
         }).then((res)=>{
-            
             this.areaList = res.data;
-            console.log(this.areaList)
-
         }).catch((erro)=>{
             console.log(erro)
         })
+    },
+    methods:{
+        changeSelected(item){
+            this.$store.dispatch('changeSelected',item)
+
+        }
     }
     
   

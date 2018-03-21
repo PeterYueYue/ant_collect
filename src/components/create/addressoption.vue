@@ -35,10 +35,10 @@
             <h5 class="reward">交易成功即可获得1次收呗信用</h5>
         </div>
         <!-- 获取用户的地址信息来判断位置 -->
-        <div class="hsdiqu clearfix" @click="getUserAddRess()"  >
+        <div class="hsdiqu clearfix"   >
             <h5 class="fl">回收地区</h5>
             <router-link class="text fl" to="/addressel/areaelecte"  >
-                {{useraddress.address+useraddress.name}}
+                {{userAddressInfo}}
                 <span class="fr"></span>
             </router-link>
         </div>
@@ -47,7 +47,7 @@
             <h1 id="demo"></h1>
             <div class="nextbutton  ">
                 <!-- <a href="">下一步</a> -->
-                <router-link  :to="'/typeSelect/'+id" >下一步</router-link>
+                <router-link  :to="'/typeSelect/'+addRessId.id" >下一步</router-link>
             </div>
 
 
@@ -71,7 +71,7 @@ export default {
     data(){
         return{
             itemID:'',
-            userAddressInfo:{},
+            userAddressInfo:'',
             areaList:'',
             id:''
         }
@@ -81,33 +81,44 @@ export default {
     this.itemID = this.$store.state.msItemId;
     const {id} = this.$route.params;   //商品ID
     this.id = id;
-    api.getAllattrOption({
+
+    console.log(this.id)
+    api.getAddRessList({
         "app_key": "app_id_1",
         "data": {
-            "id": id,
+            "areaId": 3,
+            "id":id,
             "pageBean": {
             "pageNumber": 1,
             "pageSize": 20
             }
-        }
+  }
     }).then((res)=>{
-        console.log(res,"分类的信息")
+        // 判断地址栏的默认信息以及修改后的显示逻辑
+         if(this.useraddress.address){
+             console.log("2222")
+             this.userAddressInfo = this.useraddress.address + this.useraddress.name;
+         }else{
+             if(res.data.isExist){
+                 console.log("111")
+                  this.userAddressInfo  = res.data.address + res.data.name
+             }else{
+                 this.userAddressInfo = '请输入您的详细地址...'
+             }
+         }
     }).catch((erro)=>{
         console.log(erro)
     })
-
-    
-
   },
   computed: mapGetters({
-      useraddress : 'useraddress'
+      useraddress : 'useraddress',
+      addRessId   : 'addRessId'
+
+      
   }),
   methods:{
     backbtn(){ //执行返回上一个路由；
         this.$router.go(-1);
-    },
-    getUserAddRess(){
-        console.log("123")
     }
 }
 }
