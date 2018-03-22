@@ -1,8 +1,7 @@
 <template>
   <div class="details_wrap">
     <div class="details_wrap_item">
-      <!--<div class="time">订单号：{{detailsList.orderNo}}<span :class="detailsList.statusClass">{{detailsList.statusPage}}</span></div>-->
-      <div class="time">订单号：{{detailsList.orderNo}}<span class="waiting">{{detailsList.statusPage}}</span></div>
+      <div class="time">订单号：{{detailsList.orderNo}}<span :class="detailsList.statusClass">{{detailsList.statusPage}}</span></div>
       <div class="date">时间：{{detailsList.createDatePage}}</div>
       <div class="content">
         <img :src="detailsList.category.icon" alt="" class="pic">
@@ -31,11 +30,11 @@
     <div class="details_wrap_info">
       <div class="title">询价信息</div>
       <div class="picture">
-        <img :src="pic.picUrl" alt="" v-for="pic of detailsPic">
+        <img :src="pic.picUrl" alt="" v-for="pic in detailsPic">
       </div>
       <div class="description">{{detailsList.cancelReason}}</div>
       <div class="lable">
-        <span v-for="des of detailsDes">{{des.categoryAttrOpptionName}}</span>
+        <span v-for="des in detailsDes">{{des.categoryAttrOpptionName}}</span>
       </div>
     </div>
     <div class="details_wrap_belongs">
@@ -94,7 +93,7 @@
         detailsList: {},
         detailsPic: {},
         detailsDes: {},
-        // id: this.$route.query.id,
+        id: this.$route.query.id,
       }
     },
     mounted() {
@@ -102,38 +101,35 @@
       api.getDetails({
         "app_key": "app_id_1",
         "data": {
-          // "id": this.id,
-          "id": "13",
+          "id": this.id,
           "isEvaluated": "0",
           "status": 0
         },
       }).then((res) => {
         console.log(res.data);
-        // res.data.order.map(detailsList => {
-        //   const status = detailsList.statusPage;
-        //   switch (status) {
-        //     case '已接单':
-        //       detailsList.statusClass = 'already';
-        //       break;
-        //     case '已派单':
-        //       detailsList.statusClass = 'complete';
-        //       break;
-        //     case '待接单':
-        //       detailsList.statusClass = 'waiting';
-        //       break;
-        //     case '已取消':
-        //       detailsList.statusClass = 'cancel';
-        //       break;
-        //     case '平台已取消':
-        //       detailsList.statusClass = 'cancel';
-        //       break;
-        //     case '已完成':
-        //       detailsList.statusClass = 'succeed';
-        //       break;
-        //     default:
-        //       break;
-        //   }
-        // });
+        const status = res.data.order.statusPage;
+        switch (status) {
+          case '已接单':
+            res.data.order.statusClass = 'succeed';
+            break;
+          case '已派单':
+            res.data.order.statusClass = 'complete';
+            break;
+          case '待接单':
+            res.data.order.statusClass = 'waiting';
+            break;
+          case '已取消':
+            res.data.order.statusClass = 'cancel';
+            break;
+          case '平台已取消':
+            res.data.order.statusClass = 'cancel';
+            break;
+          case '已完成':
+            res.data.order.statusClass = 'succeed';
+            break;
+          default:
+            break;
+        }
         this.detailsList = res.data.order;
         this.detailsPic = res.data.orderPicList;
         this.detailsDes = res.data.OrderItemList;

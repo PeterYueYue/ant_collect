@@ -1,9 +1,8 @@
 <template>
   <div class="home_wrap">
     <img src="@/assets/banner.jpg" alt="" class="home_wrap_banner">
-
     <!-- 有订单时 -->
-    <div class="home_wrap_item" v-for="item of homeList" v-if="showList">
+    <div class="home_wrap_item" v-for="item in homeList" v-if="showList">
       <router-link :to="{path: '/details/', query: { id: item.id }}">
         <div class="time">下单时间：{{item.createDatePage}}<span :class="item.statusClass">{{item.statusPage}}</span></div>
         <div class="content">
