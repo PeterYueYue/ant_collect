@@ -42,7 +42,7 @@
       <div class="text">本服务由爱回收有限公司提供</div>
       <div class="text">400-8288-999</div>
     </div>
-    <!-- 已派单状态才有 --><div class="details_wrap_footbtn" @click="openCode">确认交易</div>
+    <!-- 已派单状态才有 --><div class="details_wrap_footbtn" @click="openCode" v-show="detailsList.status=='TOSEND'">确认交易</div>
     <!-- 取消理由弹窗 -->
     <div class="details_shadow" v-if="showShadow"></div>
     <div class="details_shadow_box" v-if="showOrders">
