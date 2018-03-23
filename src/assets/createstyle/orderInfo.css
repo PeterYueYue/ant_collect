@@ -41,11 +41,18 @@
   display: flex;
 }
 .orderinfo .userInfoBox .userInfo .item input {
-  width: 4.54rem;
+  width: 5rem;
   line-height: 0.89rem;
   font-size: 0.3rem;
   color: #888888;
   outline: none;
+}
+.orderinfo .userInfoBox .userInfo .item span {
+  width: 5rem;
+  line-height: 0.6rem;
+  font-size: 0.3rem;
+  color: #888888;
+  text-align: left;
 }
 .orderinfo .userInfoBox .userInfo .item strong {
   text-align: left;

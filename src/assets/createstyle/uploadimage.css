@@ -44,10 +44,31 @@
   display: flex;
   justify-content: center;
 }
-.uploadimage .imgbtnortext .showimge img {
+.uploadimage .imgbtnortext .showimge .imgBox {
+  position: relative;
+}
+.uploadimage .imgbtnortext .showimge .imgBox img {
   width: 1.61rem;
   height: 1.61rem;
   margin-right: 0.2rem;
+}
+.uploadimage .imgbtnortext .showimge .imgBox .zhezhao {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+}
+.uploadimage .imgbtnortext .showimge .imgBox .closeImg {
+  position: absolute;
+  right: 0.2rem;
+  top: 0;
+  color: red;
+  z-index: 3;
+}
+.uploadimage .imgbtnortext .showimge .imgBox .van-icon-clear:before {
+  font-size: 0.3rem;
 }
 .uploadimage .imgbtnortext .showimge .isaddimg {
   width: 1.61rem;

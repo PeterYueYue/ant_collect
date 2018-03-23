@@ -1,8 +1,11 @@
 <template>
     <div>
         <ul class="elelist">
-            <li  v-for="item in cellList"  @click="sendAddInfo(item)"   >
-                <router-link :to="'/addressoption/'+addRessId.id">{{item.address+'['+item.name+']'}}</router-link>
+            <li  v-for="item,index in cellList"      @click="sendAddInfo(item)"   >
+                <router-link    :to="'/addressoption/'+addRessId.id">
+                {{item.address+"&nbsp"+item.name}}
+                
+                </router-link>
             </li>
         </ul> 
 

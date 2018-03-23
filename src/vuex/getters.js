@@ -10,4 +10,7 @@ export const isShowForState  		    = state => state.isShowForState
 export const selectedInfo               = state => state.selectedInfo
 export const areaItem                   = state => state.areaItem
 export const statisticsPrice            = state => state.statisticsPrice
-export const futurePrice                = state => state.futurePrice
+export const futurePrice                = state => state.futurePrice   
+export const textareaValue              = state => state.textareaValue   
+export const appointmentTime            = state => state.appointmentTime   
+export const imgsAddress                = state => state.imgsAddress   

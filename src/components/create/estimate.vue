@@ -8,7 +8,7 @@
             <h3 class="fl">价格评估</h3>
         </header>
         <div class="callbackinfo">
-            <img class="" src="@/assets/icebox.png" alt="">
+            <img class="" :src="addRessId.icon" alt="">
             <div class=" information ">
                 <h5>{{addRessId.name}}</h5>
                 <div class="recovery_price">

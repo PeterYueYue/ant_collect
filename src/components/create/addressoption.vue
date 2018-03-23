@@ -45,9 +45,9 @@
         <div class="next">
             <span class="add_info">找不到回收的小区?</span>
             <h1 id="demo"></h1>
-            <div class="nextbutton  ">
-                <!-- <a href="">下一步</a> -->
-                <router-link  :to="'/typeSelect/'+addRessId.id" >下一步</router-link>
+            <div  class="nextbutton  ">
+                <a  v-if="!isEnter"   style="background-color:#bfc5c8;"   href="javascript:;">下一步</a>
+                <router-link v-if="isEnter"  :to="'/typeSelect/'+addRessId.id" >下一步</router-link>
             </div>
 
 
@@ -73,7 +73,8 @@ export default {
             itemID:'',
             userAddressInfo:'',
             areaList:'',
-            id:''
+            id:'',
+            isEnter:true
         }
     },
   created(){
@@ -103,6 +104,7 @@ export default {
                  console.log("111")
                   this.userAddressInfo  = res.data.address + res.data.name
              }else{
+                 this.isEnter = false;
                  this.userAddressInfo = '请输入您的详细地址...'
              }
          }

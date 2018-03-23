@@ -63,7 +63,6 @@
   width: 100%;
 }
 .selectBox .elelist li {
-  height: 0.8rem;
   line-height: 0.8rem;
   letter-spacing: 0.05rem;
   width: 100%;
@@ -71,8 +70,12 @@
   text-indent: 0.3rem;
   font-size: 0.34rem;
   color: black;
+  background-color: #ffffff;
+  border-bottom: 0.01rem solid #f5f5f9;
 }
 .selectBox .elelist li a {
   display: block;
   color: #000000;
+  text-indent: 0;
+  padding: 0 0.5rem;
 }

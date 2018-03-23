@@ -24,9 +24,21 @@ export const changeSelected            =  ({commit}, data)  =>{  //选择地址 
 export const changeSelectedSubdistyict = ({commit}, data)   =>{
     commit(types.Change_Selected_Subdistyict, data)
 }
-export const changeStatisticsPrice = ({commit}, data)   =>{
+export const changeStatisticsPrice     = ({commit}, data)   =>{
     commit(types.Change_StatisticsPrice, data)
 }
-export const changeFuturePrice = ({commit}, data)   =>{
+export const changeFuturePrice         = ({commit}, data)   =>{  // 预估价格
     commit(types.Change_Future_Price, data)
+}
+export const changeTextareaValue       = ({commit}, data)   =>{   //图片描述信息
+    commit(types.Change_Textarea_Value, data)
+}
+export const changeAppointmentTime     = ({commit}, data)   =>{   //设定或改变预约时间
+    commit(types.Change_Appointment_Time, data)
+}
+export const addImgsUrl                 = ({commit}, data)   =>{   //从服务器请求来的上传的图片呢地址信息
+    commit(types.add_Imgs_Url, data)
+}
+export const removeImg                   = ({commit}, data)   =>{   //删除上传图片
+    commit(types.remove_Img, data)
 }

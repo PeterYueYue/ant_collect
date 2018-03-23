@@ -45,12 +45,37 @@
         .showimge{
             display: flex;
             justify-content: center;
-            img{
-                width: 161/@rem;
-                height: 161/@rem;
-                margin-right: 20/@rem;
+
+            .imgBox{
+                position: relative;
                 
+                img{
+                    width: 161/@rem;
+                    height: 161/@rem;
+                    margin-right: 20/@rem;
+                    
+                }
+                .zhezhao{
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    z-index: 2;
+                }
+                .closeImg{
+                    position: absolute;
+                    right: 20/@rem;
+                    top: 0;
+                    color: red;
+                    z-index: 3;
+
+                }
+                .van-icon-clear:before{
+                    font-size: 30/@rem;
+                }
             }
+            
             .isaddimg{
                 width: 161/@rem;
                 height: 161/@rem;
