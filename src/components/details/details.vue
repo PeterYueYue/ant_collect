@@ -11,7 +11,7 @@
         </div>
       </div>
     </div>
-    <div class="details_wrap_time">{{detailsList.arrivalTimePage}}<span class="btn_cancel" @click="openOrders" v-show="detailsList.status!=='COMPLETE'">取消订单</span></div>
+    <div class="details_wrap_time">{{detailsList.arrivalTimePage}}<span class="btn_cancel" @click="openOrders" v-show="detailsList.status!=='COMPLETE'&&detailsList.status!=='CANCEL'">取消订单</span></div>
     <!-- 待接单状态无此div -->
     <!-- 已取消 -->
     <div class="details_wrap_reason" v-show="detailsList.status=='CANCEL'||detailsList.status=='REJECTED'">
@@ -194,6 +194,8 @@
           },
         }).then((res) => {
           console.log(res.data);
+          this.showShadow = false;
+          this.showOrders = false;
         }).catch((erro) => {
           console.log(erro)
         })
