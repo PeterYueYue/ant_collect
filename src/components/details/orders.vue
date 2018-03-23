@@ -1,17 +1,17 @@
 <template>
   <div class="orders_wrap">
-    <router-link to="/details">
-      <div class="orders_wrap_item" v-for="item of ordersList">
-        <div class="time">{{item.statusDatePage}}<span :class="item.statusClass">{{item.statusPage}}</span></div>
-        <div class="content">
-          <img :src="item.category.icon" alt="" class="pic">
-          <div>
-            <div class="name">{{item.category.name}}</div>
-            <div class="price">预估价格：<span>￥{{item.price}}</span></div>
-          </div>
+    <div class="orders_wrap_item" v-for="item in ordersList">
+      <router-link :to="{path: '/details/', query: { id: item.id }}">
+      <div class="time">{{item.statusDatePage}}<span :class="item.statusClass">{{item.statusPage}}</span></div>
+      <div class="content">
+        <img :src="item.category.icon" alt="" class="pic">
+        <div>
+          <div class="name">{{item.category.name}}</div>
+          <div class="price">预估价格：<span>￥{{item.price}}</span></div>
         </div>
       </div>
-    </router-link>
+      </router-link>
+    </div>
     <div class="orders_wrap_text"><span class="line_lf"></span>没有更多订单了<span class="line_rt"></span></div>
   </div>
 </template>
@@ -50,6 +50,9 @@
               items.statusClass = 'waiting';
               break;
             case '已取消':
+              items.statusClass = 'cancel';
+              break;
+            case '平台已取消':
               items.statusClass = 'cancel';
               break;
             case '已完成':

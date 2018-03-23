@@ -1,7 +1,7 @@
 <template>
   <div class="details_wrap">
     <div class="details_wrap_item">
-      <div class="time">订单号：{{detailsList.orderNo}}<span class="waiting">{{detailsList.statusPage}}</span></div>
+      <div class="time">订单号：{{detailsList.orderNo}}<span :class="detailsList.statusClass">{{detailsList.statusPage}}</span></div>
       <div class="date">时间：{{detailsList.createDatePage}}</div>
       <div class="content">
         <img :src="detailsList.category.icon" alt="" class="pic">
@@ -11,31 +11,38 @@
         </div>
       </div>
     </div>
-    <!-- 只有已完成状态无取消按钮 --><div class="details_wrap_time">{{detailsList.arrivalTimePage}}<span class="btn_cancel" @click="openOrders">取消订单</span></div>
+    <div class="details_wrap_time">{{detailsList.arrivalTimePage}}<span class="btn_cancel" @click="openOrders" v-show="detailsList.status!=='COMPLETE'&&detailsList.status!=='CANCEL'">取消订单</span></div>
     <!-- 待接单状态无此div -->
-    <div class="details_wrap_reason">
-      <!--&lt;!&ndash; 已取消 &ndash;&gt;<div class="why">取消原因</div>-->
-      <!--&lt;!&ndash; 已取消 &ndash;&gt;<div class="answer">{{detailsList.cancelReason}}</div>-->
-      <!-- 已完成，已派单，但已派单状态无评价按钮 --><div class="why">回收人员{{detailsList.recyclerId}}号<span class="btn_view" @click="openEvaluation">评价/查看评价</span></div>
-      <!-- 已完成，已派单 --><div class="tel"><img src="@/assets/icon_tel.png" alt="" class="icon_tel">联系电话：{{detailsList.tel}}</div>
-      <!--&lt;!&ndash; 已接单 &ndash;&gt;<div class="why">派单详情</div>-->
-      <!--&lt;!&ndash; 已接单 &ndash;&gt;<div class="answer">本订单已由爱回收有限公司接单，工作人员将在1-3个工作日内与您联系，请保持电话畅通</div>-->
+    <!-- 已取消 -->
+    <div class="details_wrap_reason" v-show="detailsList.status=='CANCEL'||detailsList.status=='REJECTED'">
+       <div class="why">取消原因</div>
+       <div class="answer">{{detailsList.cancelReason}}</div>
+    </div>
+    <!-- 已完成，已派单 -->
+    <div class="details_wrap_reason" v-show="detailsList.status=='COMPLETE'||detailsList.status=='TOSEND'">
+      <div class="why">回收人员{{detailsList.recyclerId}}号<span class="btn_view" @click="openEvaluation" v-show="detailsList.status=='COMPLETE'">评价/查看评价</span></div>
+      <div class="tel"><img src="@/assets/icon_tel.png" alt="" class="icon_tel">联系电话：{{detailsList.tel}}</div>
+    </div>
+    <!-- 已接单 -->
+    <div class="details_wrap_reason" v-show="detailsList.status=='ALREADY'">
+      <div class="why">派单详情</div>
+      <div class="answer">本订单已由爱回收有限公司接单，工作人员将在1-3个工作日内与您联系，请保持电话畅通</div>
     </div>
     <div class="details_wrap_info">
       <div class="title">询价信息</div>
       <div class="picture">
-        <img :src="pic.picUrl" alt="" v-for="pic of detailsPic">
+        <img :src="pic.picUrl" alt="" v-for="pic in detailsPic">
       </div>
-      <div class="description">回收物描述字数有限制，0~120字描述</div>
+      <div class="description">{{detailsList.cancelReason}}</div>
       <div class="lable">
-        <span v-for="des of detailsDes">{{des.categoryAttrOpptionName}}</span>
+        <span v-for="des in detailsDes">{{des.categoryAttrOpptionName}}</span>
       </div>
     </div>
     <div class="details_wrap_belongs">
       <div class="text">本服务由爱回收有限公司提供</div>
       <div class="text">400-8288-999</div>
     </div>
-    <!--&lt;!&ndash; 已派单状态才有 &ndash;&gt;<div class="details_wrap_footbtn" @click="openCode">确认交易</div>-->
+    <!-- 已派单状态才有 --><div class="details_wrap_footbtn" @click="openCode" v-show="detailsList.status=='TOSEND'">确认交易</div>
     <!-- 取消理由弹窗 -->
     <div class="details_shadow" v-if="showShadow"></div>
     <div class="details_shadow_box" v-if="showOrders">
@@ -49,7 +56,7 @@
       </div>
       <div class="button_footer">
         <div class="btn_cancel" @click="closeOrders">取消</div>
-        <div class="btn_confirm">确认</div>
+        <div class="btn_confirm" @click="submitCancelOrders">确认</div>
       </div>
     </div>
     <!-- 二维码弹窗 -->
@@ -87,6 +94,7 @@
         detailsList: {},
         detailsPic: {},
         detailsDes: {},
+        id: this.$route.query.id,
       }
     },
     mounted() {
@@ -94,35 +102,35 @@
       api.getDetails({
         "app_key": "app_id_1",
         "data": {
-          // "id": this.$route.params
-          "id": '10',
+          "id": this.id,
           "isEvaluated": "0",
           "status": 0
         },
       }).then((res) => {
         console.log(res.data);
-        // res.data.order.map(detailsList => {
-        //   const status = detailsList.statusPage;
-        //   switch (status) {
-        //     case '已接单':
-        //       detailsList.statusClass = 'already';
-        //       break;
-        //     case '已派单':
-        //       detailsList.statusClass = 'complete';
-        //       break;
-        //     case '待接单':
-        //       detailsList.statusClass = 'waiting';
-        //       break;
-        //     case '已取消':
-        //       detailsList.statusClass = 'cancel';
-        //       break;
-        //     case '已完成':
-        //       detailsList.statusClass = 'succeed';
-        //       break;
-        //     default:
-        //       break;
-        //   }
-        // });
+        const status = res.data.order.statusPage;
+        switch (status) {
+          case '已接单':
+            res.data.order.statusClass = 'succeed';
+            break;
+          case '已派单':
+            res.data.order.statusClass = 'complete';
+            break;
+          case '待接单':
+            res.data.order.statusClass = 'waiting';
+            break;
+          case '已取消':
+            res.data.order.statusClass = 'cancel';
+            break;
+          case '平台已取消':
+            res.data.order.statusClass = 'cancel';
+            break;
+          case '已完成':
+            res.data.order.statusClass = 'succeed';
+            break;
+          default:
+            break;
+        }
         this.detailsList = res.data.order;
         this.detailsPic = res.data.orderPicList;
         this.detailsDes = res.data.OrderItemList;
@@ -175,7 +183,23 @@
       },
       stars(index){
         this.score = index + 1
-      }
+      },
+      submitCancelOrders(){
+        api.cancelOrders({
+          "app_key": "app_id_1",
+          "data": {
+            "id": this.id,
+            "cancelReason": "时间太紧",
+            "isEvaluated": "0"
+          },
+        }).then((res) => {
+          console.log(res.data);
+          this.showShadow = false;
+          this.showOrders = false;
+        }).catch((erro) => {
+          console.log(erro)
+        })
+      },
     }
   }
 </script>

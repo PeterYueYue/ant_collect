@@ -14,7 +14,7 @@
       <div class="tab1" v-if="showTab">
         <div class="remind">信用累计可能会延迟,请耐心等待....</div>
         <div class="list">
-          <template v-for="item of recordsList">
+          <template v-for="item in recordsList">
             <div class="list_item" v-if="item.type==='0'">
               <div class="name">{{item.descrb}}<span>+{{item.point}}</span></div>
               <div class="date">{{item.createDatePage}}</div>
@@ -27,7 +27,7 @@
       <div class="tab2" v-else>
         <div class="remind">截止昨天24:00前记录，仅限支付宝端兑换记录</div>
         <div class="list">
-          <template v-for="item of recordsList">
+          <template v-for="item in recordsList">
             <div class="list_item" v-if="item.type==='1'">
               <div class="name">{{item.descrb}}<span>-{{item.point}}</span></div>
               <div class="date">{{item.createDatePage}}</div>

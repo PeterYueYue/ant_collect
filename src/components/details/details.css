@@ -263,6 +263,7 @@ label {
   height: 0.88rem;
   line-height: 0.88rem;
   background: #00a0e9;
+  border-radius: 0 0 0.2rem 0;
 }
 .details_shadow_code {
   width: 100%;
