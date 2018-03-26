@@ -12,12 +12,15 @@ import {DateTime} from 'vue-ydui/dist/lib.rem/datetime';
 import 'vue-ydui/dist/ydui.rem.css';
 import 'vue-ydui/dist/ydui.base.css';
 // import 'iview/dist/styles/iview.css';
+
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
 import $ from 'jquery'
 import Vant from 'vant';
 import 'vant/lib/vant-css/index.css';
 
 Vue.use(Vant);
-
+Vue.use(ElementUI)
 Vue.use(YDUI);
 Vue.use(iView);
 Vue.use(Vuex)

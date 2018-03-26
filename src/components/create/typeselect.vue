@@ -25,13 +25,13 @@
         </div>
     </div>
 
-    <div class="classchange"  v-for="item,index in dataList" v-if="    isShow == index"   >
+    <div class="classchange"  v-for="item,index in dataList" v-if="    isShow == index"        >
         <h3 class="titlename">{{item.name}}</h3>
         <ul class="class_change_list clearfix">
             
             <li class="fl "   v-for="e,i in item.categoryAttrOptionList"    >
                 <!-- <router-link :to="'/typeSelect/typestate/' + pointIndex" class="active">{{e.name}}</router-link> -->
-                <a class="active"  @click="changeItem(e,{item,index})" href="javascript:;">{{e.name}}</a>
+                <a :class="{active: isActive === i }"  @click="changeItem(e,{item,index,i})" href="javascript:;">{{e.name}}</a>
             </li>
             
         </ul>
@@ -63,7 +63,8 @@ export default {
             itemID:null,    //商品ID
             dataList:null,  // 商品属性信息列表
             isShow:0,       //判断第几个选项卡显示    
-            classInfo:null  //存储类型选择的信息
+            classInfo:null , //存储类型选择的信息
+            isActive: false
         }
     },
     components:{
@@ -102,13 +103,26 @@ export default {
         },
         changeItem(e,itemInfo){
             if(this.isShow <this.dataList.length-1 ){
-                console.log(e,'xinxi')
+
+                console.log(itemInfo,'xinxi')
+
+                this.isActive = itemInfo.i
                 this.$store.dispatch('changeStatisticsPrice',e)
-                this.isShow+=1;
+
+
+                setTimeout(()=>{
+                    this.isShow+=1;
+                    this.isActive = -1
+                },500)
             }else{
-                this.$store.dispatch('changeStatisticsPrice',e)  //再最后跳转前再执行一次；
-                this.$router.push({path:'/uploadimage'})
-                console.log("可以重定向")
+                this.isActive = itemInfo.i
+                setTimeout(()=>{
+                    this.$store.dispatch('changeStatisticsPrice',e)  //再最后跳转前再执行一次；
+                    this.$router.push({path:'/uploadimage'})
+                    console.log("可以重定向")
+                    this.isActive = -1
+                },500)
+                
           }
       } 
       

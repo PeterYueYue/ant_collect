@@ -35,16 +35,12 @@
     <div class="collectTimeAndPrice">
         <div class="pickUp ">
             <strong>上门时间：</strong>
-            <time>2018.1.23</time>
-            <span>上午</span>
-
-            
-            <div class="dataBlock">
+            <time>{{time}}</time>
+            <div  @click="setTime" class="dataBlock">
                 <a href="javaScript:;">  
                 </a>
-                
-                 
             </div>
+
         </div>
         
         <!-- <yd-cell-group>
@@ -52,11 +48,17 @@
                 <span slot="left">上门时间：</span>
                 <yd-datetime type="datetime" v-model="datetime5" slot="right"></yd-datetime>
             </yd-cell-item>
-        </yd-cell-group>
+        </yd-cell-group> -->
+
+        
+        
+            
+       
+         
         <div class="estimatePrice clearfix">
             <strong class="fl">回收估计</strong>
             <span class="fr">￥{{futurePrice}}</span>
-        </div> -->
+        </div>
         
     </div>
     <div class="information">实际成交价格最终验机结果为准</div>
@@ -71,11 +73,23 @@
     </div>
   </div>
 </template>
-<style>
 
+<style>
+/* .yd-datetime-item-content span{
+    font-size: .3rem;
+    height: 76px;
+}
+.yd-datetime-item-content span{
+    height: 76px;
+    
+
+} */
 </style>
 
+
 <script>
+
+
 import '@/assets/createstyle/tool.css'
 
 import '@/assets/createstyle/orderInfo.css'
@@ -87,6 +101,8 @@ export default {
             nameValue:'',
             phoneNumber: '',
             datetime5: '2018-01-11 06:06',
+            time :'请选择上门回收时间'
+            
         }
     },
     computed: mapGetters({
@@ -98,6 +114,29 @@ export default {
     methods:{
         backbtn(){
             this.$router.go(-1);
+        },
+        setTime(){
+
+            var antThis = this;
+            
+                
+            ap.datePicker({
+                formate: 'yyyy-MM-dd HH:mm:ss',
+                currentDate: '2018-03-25 15:11:11',
+                startDate: '2018-03-01 11:11:11',
+                endDate: '2018-12-30 11:11:11'
+            }, function(res) {
+
+                antThis.time = res.date;
+                alert(antThis.time);
+
+            
+
+            });
+
+            
+
+
         },
         isName(){
             var reg = RegExp();
@@ -124,4 +163,6 @@ export default {
   
 }
 </script>
+
+
 

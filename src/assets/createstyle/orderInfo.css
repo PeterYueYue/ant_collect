@@ -82,7 +82,7 @@
 .orderinfo .collectTimeAndPrice .pickUp time,
 .orderinfo .collectTimeAndPrice .pickUp span {
   color: #333333;
-  font-size: 0.34rem;
+  font-size: 0.26rem;
   line-height: 0.9rem;
 }
 .orderinfo .collectTimeAndPrice .pickUp .dataBlock {
