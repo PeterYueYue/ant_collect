@@ -91,8 +91,8 @@
         console.log(res.data);
         this.documentNo = res.data[0];
         this.recordsList = res.data[1];
-      }).catch((erro) => {
-        console.log(erro)
+      }).catch((error) => {
+        console.log(error)
       })
     },
   }

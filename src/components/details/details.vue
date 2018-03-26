@@ -20,7 +20,7 @@
     </div>
     <!-- 已完成，已派单 -->
     <div class="details_wrap_reason" v-show="detailsList.status=='COMPLETE'||detailsList.status=='TOSEND'">
-      <div class="why">回收人员{{detailsList.recyclerId}}号<span class="btn_view" @click="openEvaluation" v-show="detailsList.status=='COMPLETE'">评价/查看评价</span></div>
+      <div class="why">回收人员{{detailsList.recyclerId}}号<span class="btn_view" @click="openEvaluation" v-show="detailsList.status=='COMPLETE'">{{detailsList.isEvaluated=='1' ? '查看评价' : '评价'}}</span></div>
       <a href="tel:13828172679" class="tel"><img src="@/assets/icon_tel.png" alt="" class="icon_tel">联系电话：{{detailsList.tel}}</a>
     </div>
     <!-- 已接单 -->
@@ -80,8 +80,8 @@
         <li v-for="(itemClass,index) in itemClasses" :class="itemClass" class="star-item" @click="stars(index)" track-by="index"></li>
         </ul>
       </div>
-      <textarea name="" id="" class="text">我们的服务您还满意吗？</textarea>
-      <div class="footer_btn" @click="closeEvaluation">提交</div>
+      <textarea name="" id="" class="text" v-model="evaluateText" :disabled="detailsList.isEvaluated=='1'" placeholder="我们的服务您还满意吗？"></textarea>
+      <div class="footer_btn" @click="closeEvaluation">{{detailsList.isEvaluated=='1' ? '关闭' : '提交'}}</div>
     </div>
   </div>
 </template>
@@ -98,12 +98,13 @@
         showEvaluation: false,
         showCode: false,
         showCancel: false,
-        score: 4,
+        score: 5,
         detailsList: {},
         detailsPic: {},
         detailsDes: {},
         id: this.$route.query.id,
-        cancelReason: ''
+        cancelReason: '',
+        evaluateText: '',
       }
     },
     mounted() {
@@ -143,9 +144,11 @@
         this.detailsList = res.data.order;
         this.detailsPic = res.data.orderPicList;
         this.detailsDes = res.data.OrderItemList;
-      }).catch((erro) => {
-        console.log(erro)
+      }).catch((error) => {
+        console.log(error)
       })
+      //获取评价
+      this.getEvaluate();
     },
     computed:{ //计算属性
       itemClasses(){
@@ -182,6 +185,13 @@
         document.querySelector('body').style.overflow = 'hidden';
       },
       closeEvaluation(){
+        if ('detailsList.isEvaluated=="1"') {
+          this.showShadow = false;
+          this.showEvaluation = false;
+          document.querySelector('body').style.overflow = 'auto';
+          return
+        }
+        this.setEvaluate();
         this.showShadow = false;
         this.showEvaluation = false;
         document.querySelector('body').style.overflow = 'auto';
@@ -222,8 +232,41 @@
           this.showOrders = false;
           this.showCancel = true;
           this.timedMsg();
-        }).catch((erro) => {
-          console.log(erro)
+        }).catch((error) => {
+          console.log(error)
+        })
+      },
+      getEvaluate(){
+        api.getEvaluate({
+          "app_key": "app_id_1",
+          "data": {
+            "id": this.id,
+          },
+        }).then((res) => {
+          console.log(res);
+          if (res.data) {
+            this.score = res.data.score;
+            this.evaluateText = res.data.content;
+          } else {
+          }
+        }).catch((error) => {
+          console.log(error)
+        })
+      },
+      setEvaluate(){
+        api.setEvaluate({
+          "app_key": "app_id_1",
+          "data": {
+            "recyclerId": 0,
+            "orderId": this.id,
+            "score": this.score,
+            "content": this.evaluateText,
+            "memberId": 0
+          },
+        }).then((res) => {
+          console.log(res.data);
+        }).catch((error) => {
+          console.log(error)
         })
       },
     }
