@@ -4,9 +4,9 @@
       <div class="time">订单号：{{detailsList.orderNo}}<span :class="detailsList.statusClass">{{detailsList.statusPage}}</span></div>
       <div class="date">时间：{{detailsList.createDatePage}}</div>
       <div class="content">
-        <img :src="detailsList.category.icon" alt="" class="pic">
+        <img :src="detailsList.category?detailsList.category.icon:''" alt="" class="pic">
         <div>
-          <div class="name">{{detailsList.category.name}}</div>
+          <div class="name">{{detailsList.category ? detailsList.category.name : ''}}</div>
           <div class="price">预估价格：<span>￥{{detailsList.price}}</span></div>
         </div>
       </div>
@@ -160,26 +160,32 @@
       openOrders(){
         this.showShadow = true;
         this.showOrders = true;
+        document.querySelector('body').style.overflow = 'hidden';
       },
       closeOrders(){
         this.showShadow = false;
         this.showOrders = false;
+        document.querySelector('body').style.overflow = 'auto';
       },
       openEvaluation(){
         this.showShadow = true;
         this.showEvaluation = true;
+        document.querySelector('body').style.overflow = 'hidden';
       },
       closeEvaluation(){
         this.showShadow = false;
         this.showEvaluation = false;
+        document.querySelector('body').style.overflow = 'auto';
       },
       openCode(){
         this.showShadow = true;
         this.showCode = true;
+        document.querySelector('body').style.overflow = 'hidden';
       },
       closeCode(){
         this.showShadow = false;
         this.showCode = false;
+        document.querySelector('body').style.overflow = 'auto';
       },
       stars(index){
         this.score = index + 1

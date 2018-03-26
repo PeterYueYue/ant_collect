@@ -68,10 +68,12 @@
       openWindow() {
         this.showShadow = true;
         this.showBox = true;
+        document.querySelector('body').style.overflow = 'hidden';
       },
       closeBox() {
         this.showShadow = false;
         this.showBox = false;
+        document.querySelector('body').style.overflow = 'auto';
       },
       openTab(type) {
         this.showTab = type;
