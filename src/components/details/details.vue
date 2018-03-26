@@ -11,7 +11,7 @@
         </div>
       </div>
     </div>
-    <div class="details_wrap_time">{{detailsList.arrivalTimePage}}<span class="btn_cancel" @click="openOrders" v-show="detailsList.status!=='COMPLETE'&&detailsList.status!=='CANCEL'">取消订单</span></div>
+    <div class="details_wrap_time">{{detailsList.arrivalTimePage}}<span class="btn_cancel" @click="openOrders" v-show="detailsList.status!=='COMPLETE'&&detailsList.status!=='CANCEL'&&detailsList.status!=='REJECTED'">取消订单</span></div>
     <!-- 待接单状态无此div -->
     <!-- 已取消 -->
     <div class="details_wrap_reason" v-show="detailsList.status=='CANCEL'||detailsList.status=='REJECTED'">
@@ -21,7 +21,7 @@
     <!-- 已完成，已派单 -->
     <div class="details_wrap_reason" v-show="detailsList.status=='COMPLETE'||detailsList.status=='TOSEND'">
       <div class="why">回收人员{{detailsList.recyclerId}}号<span class="btn_view" @click="openEvaluation" v-show="detailsList.status=='COMPLETE'">评价/查看评价</span></div>
-      <div class="tel"><img src="@/assets/icon_tel.png" alt="" class="icon_tel">联系电话：{{detailsList.tel}}</div>
+      <a href="tel:13828172679" class="tel"><img src="@/assets/icon_tel.png" alt="" class="icon_tel">联系电话：{{detailsList.tel}}</a>
     </div>
     <!-- 已接单 -->
     <div class="details_wrap_reason" v-show="detailsList.status=='ALREADY'">
@@ -43,22 +43,29 @@
       <div class="text">400-8288-999</div>
     </div>
     <!-- 已派单状态才有 --><div class="details_wrap_footbtn" @click="openCode" v-show="detailsList.status=='TOSEND'">确认交易</div>
-    <!-- 取消理由弹窗 -->
     <div class="details_shadow" v-if="showShadow"></div>
+    <!-- 取消理由弹窗 -->
     <div class="details_shadow_box" v-if="showOrders">
       <div class="title">请选择取消订单的理由</div>
       <div class="button_holder">
-        <input type="radio" id="radio-1" name="radio" class="regular_radio"/><label for="radio-1"></label>不想卖了<br />
-        <input type="radio" id="radio-2" name="radio" class="regular_radio" /><label for="radio-2"></label>信息填写错误<br />
-        <input type="radio" id="radio-3" name="radio" class="regular_radio" /><label for="radio-3"></label>估价过低<br />
-        <input type="radio" id="radio-4" name="radio" class="regular_radio" /><label for="radio-4"></label>回收员原因<br />
-        <input type="radio" id="radio-5" name="radio" class="regular_radio" /><label for="radio-5"></label>其他原因
+        <input type="radio" id="radio-1" name="radio" class="regular_radio" value="不想买了" v-model="cancelReason"/><label
+        for="radio-1"><i></i>不想买了</label>
+        <input type="radio" id="radio-2" name="radio" class="regular_radio" value="信息填写错误"
+               v-model="cancelReason"/><label for="radio-2"><i></i>信息填写错误</label>
+        <input type="radio" id="radio-3" name="radio" class="regular_radio" value="估价过低" v-model="cancelReason"/><label
+        for="radio-3"><i></i>估价过低</label>
+        <input type="radio" id="radio-4" name="radio" class="regular_radio" value="回收员原因" v-model="cancelReason"/><label
+        for="radio-4"><i></i>回收员原因</label>
+        <input type="radio" id="radio-5" name="radio" class="regular_radio" value="其他原因" v-model="cancelReason"/><label
+        for="radio-5"><i></i>其他原因</label>
       </div>
       <div class="button_footer">
         <div class="btn_cancel" @click="closeOrders">取消</div>
         <div class="btn_confirm" @click="submitCancelOrders">确认</div>
       </div>
     </div>
+    <!-- 取消成功弹窗 -->
+    <div class="details_cancelSucceed_box" v-if="showCancel">取消成功</div>
     <!-- 二维码弹窗 -->
     <div class="details_shadow_code" v-if="showCode">
       <img src="@/assets/icon_delete.png" alt="" class="icon_delete" @click="closeCode">
@@ -90,11 +97,13 @@
         showOrders: false,
         showEvaluation: false,
         showCode: false,
+        showCancel: false,
         score: 4,
         detailsList: {},
         detailsPic: {},
         detailsDes: {},
         id: this.$route.query.id,
+        cancelReason: ''
       }
     },
     mounted() {
@@ -108,7 +117,7 @@
         },
       }).then((res) => {
         console.log(res.data);
-        const status = res.data.order.statusPage;
+        var status = res.data.order.statusPage;
         switch (status) {
           case '已接单':
             res.data.order.statusClass = 'succeed';
@@ -140,11 +149,11 @@
     },
     computed:{ //计算属性
       itemClasses(){
-        let result = []; // 返回的是一个数组,用来遍历输出星星
-        let score = Math.floor(this.score * 2 ) / 2; // 计算所有星星的数量
-        let hasDecimal = score % 1 !== 0; // 非整数星星判断
-        let integer = Math.floor(score); // 整数星星判断
-        for(let i=0;i<integer;i++){ // 整数星星使用on
+        var result = []; // 返回的是一个数组,用来遍历输出星星
+        var score = Math.floor(this.score * 2 ) / 2; // 计算所有星星的数量
+        var hasDecimal = score % 1 !== 0; // 非整数星星判断
+        var integer = Math.floor(score); // 整数星星判断
+        for(var i=0;i<integer;i++){ // 整数星星使用on
           result.push("on"); // 一个整数星星就push一个CLS_ON到数组
         }
         if(hasDecimal){ // 非整数星星使用half
@@ -190,18 +199,29 @@
       stars(index){
         this.score = index + 1
       },
+      timedMsg(){
+        setTimeout(()=>{
+          this.showCancel = false;
+          this.showShadow = false;
+          document.querySelector('body').style.overflow = 'auto';
+          this.$router.push({
+            path:'/orders'
+          })
+        },1000);
+      },
       submitCancelOrders(){
         api.cancelOrders({
           "app_key": "app_id_1",
           "data": {
             "id": this.id,
-            "cancelReason": "时间太紧",
+            "cancelReason": this.cancelReason,
             "isEvaluated": "0"
           },
         }).then((res) => {
           console.log(res.data);
-          this.showShadow = false;
           this.showOrders = false;
+          this.showCancel = true;
+          this.timedMsg();
         }).catch((erro) => {
           console.log(erro)
         })

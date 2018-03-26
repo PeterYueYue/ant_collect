@@ -38,7 +38,7 @@
         console.log(res.data.listOrder);
         this.ordersList = res.data.listOrder;
         res.data.listOrder.map(items => {
-          const status = items.statusPage;
+          var status = items.statusPage;
           switch (status) {
             case '已接单':
               items.statusClass = 'already';

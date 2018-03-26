@@ -50,7 +50,7 @@
     },
     mounted() {
       //存储token到本地
-      const token = this.$route.query.token;
+      var token = this.$route.query.token;
       window.localStorage.setItem('token', token);
       //获取数据
       api.getHome({
@@ -61,7 +61,7 @@
           this.showList = false;
         } else {
           res.data.map(items => {
-            const status = items.statusPage;
+            var status = items.statusPage;
             switch (status) {
               case '已接单':
                 items.statusClass = 'already';
