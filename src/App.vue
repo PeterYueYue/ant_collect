@@ -1,8 +1,4 @@
 <style>
-  body {
-    height: auto!important;
-  }
-
   #app {
     display: flex;
     height: 100%;
