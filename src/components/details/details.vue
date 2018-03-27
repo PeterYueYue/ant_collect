@@ -91,7 +91,8 @@
       </div>
       <textarea name="" id="" class="text" v-model="evaluateText" :disabled="detailsList.isEvaluated=='1'"
                 placeholder="我们的服务您还满意吗？"></textarea>
-      <div class="footer_btn" @click="closeEvaluation">{{detailsList.isEvaluated == '1' ? '关闭' : '提交'}}</div>
+      <div class="footer_btn" @click="closeEvaluation" v-show="detailsList.isEvaluated == '1'">关闭</div>
+      <div class="footer_btn" @click="setEvaluate" v-show="detailsList.isEvaluated == '0'">提交</div>
     </div>
   </div>
 </template>
@@ -283,10 +284,15 @@
             "memberId": 0
           },
         }).then((res) => {
-          if (res.success) {
-            this.getData();
-          }
-          console.log(res.data);
+          this.$router.push({
+                path: '/orders'
+              })
+          // if (res.status=="success") {
+          //   this.$router.push({
+          //     path: '/orders'
+          //   })
+          //   this.getData();
+          // }
         }).catch((error) => {
           console.log(error)
         })
