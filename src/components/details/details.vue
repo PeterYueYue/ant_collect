@@ -1,7 +1,9 @@
 <template>
-  <div class="details_wrap">
+  <imgView v-if="showImgView" :picUrl="picUrl" @toggleImgView="toggleImgView"></imgView>
+  <div class="details_wrap" v-else>
     <div class="details_wrap_item">
-      <div class="time">订单号：{{detailsList.orderNo}}<span :class="detailsList.statusClass">{{detailsList.statusPage}}</span></div>
+      <div class="time">订单号：{{detailsList.orderNo}}<span
+        :class="detailsList.statusClass">{{detailsList.statusPage}}</span></div>
       <div class="date">时间：{{detailsList.createDatePage}}</div>
       <div class="content">
         <img :src="detailsList.category?detailsList.category.icon:''" alt="" class="pic">
@@ -11,17 +13,22 @@
         </div>
       </div>
     </div>
-    <div class="details_wrap_time">{{detailsList.arrivalTimePage}}<span class="btn_cancel" @click="openOrders" v-show="detailsList.status!=='COMPLETE'&&detailsList.status!=='CANCEL'&&detailsList.status!=='REJECTED'">取消订单</span></div>
+    <div class="details_wrap_time">{{detailsList.arrivalTimePage}}<span class="btn_cancel" @click="openOrders"
+                                                                        v-show="detailsList.status!=='COMPLETE'&&detailsList.status!=='CANCEL'&&detailsList.status!=='REJECTED'">取消订单</span>
+    </div>
     <!-- 待接单状态无此div -->
     <!-- 已取消 -->
     <div class="details_wrap_reason" v-show="detailsList.status=='CANCEL'||detailsList.status=='REJECTED'">
-       <div class="why">取消原因</div>
-       <div class="answer">{{detailsList.cancelReason}}</div>
+      <div class="why">取消原因</div>
+      <div class="answer">{{detailsList.cancelReason}}</div>
     </div>
     <!-- 已完成，已派单 -->
     <div class="details_wrap_reason" v-show="detailsList.status=='COMPLETE'||detailsList.status=='TOSEND'">
-      <div class="why">回收人员{{detailsList.recyclerId}}号<span class="btn_view" @click="openEvaluation" v-show="detailsList.status=='COMPLETE'">{{detailsList.isEvaluated=='1' ? '查看评价' : '评价'}}</span></div>
-      <a href="tel:13828172679" class="tel"><img src="@/assets/icon_tel.png" alt="" class="icon_tel">联系电话：{{detailsList.tel}}</a>
+      <div class="why">回收人员{{detailsList.recyclerId}}号<span class="btn_view" @click="openEvaluation"
+                                                            v-show="detailsList.status=='COMPLETE'">{{detailsList.isEvaluated == '1' ? '查看评价' : '评价'}}</span>
+      </div>
+      <a href="tel:13828172679" class="tel"><img src="@/assets/icon_tel.png" alt=""
+                                                 class="icon_tel">联系电话：{{detailsList.tel}}</a>
     </div>
     <!-- 已接单 -->
     <div class="details_wrap_reason" v-show="detailsList.status=='ALREADY'">
@@ -31,7 +38,7 @@
     <div class="details_wrap_info">
       <div class="title">询价信息</div>
       <div class="picture">
-        <img :src="pic.picUrl" alt="" v-for="pic in detailsPic">
+        <img :src="pic.picUrl" alt="" v-for="pic in detailsPic" @click="toggleImgView(true)">
       </div>
       <div class="description">{{detailsList.cancelReason}}</div>
       <div class="lable">
@@ -42,7 +49,8 @@
       <div class="text">本服务由爱回收有限公司提供</div>
       <div class="text">400-8288-999</div>
     </div>
-    <!-- 已派单状态才有 --><div class="details_wrap_footbtn" @click="openCode" v-show="detailsList.status=='TOSEND'">确认交易</div>
+    <!-- 已派单状态才有 -->
+    <div class="details_wrap_footbtn" @click="openCode" v-show="detailsList.status=='TOSEND'">确认交易</div>
     <div class="details_shadow" v-if="showShadow"></div>
     <!-- 取消理由弹窗 -->
     <div class="details_shadow_box" v-if="showOrders">
@@ -77,11 +85,13 @@
       <div class="title">我们的服务您满意吗？</div>
       <div class="evaStar">
         <ul class="star">
-        <li v-for="(itemClass,index) in itemClasses" :class="itemClass" class="star-item" @click="stars(index)" track-by="index"></li>
+          <li v-for="(itemClass,index) in itemClasses" :class="itemClass" class="star-item" @click="stars(index)"
+              track-by="index"></li>
         </ul>
       </div>
-      <textarea name="" id="" class="text" v-model="evaluateText" :disabled="detailsList.isEvaluated=='1'" placeholder="我们的服务您还满意吗？"></textarea>
-      <div class="footer_btn" @click="closeEvaluation">{{detailsList.isEvaluated=='1' ? '关闭' : '提交'}}</div>
+      <textarea name="" id="" class="text" v-model="evaluateText" :disabled="detailsList.isEvaluated=='1'"
+                placeholder="我们的服务您还满意吗？"></textarea>
+      <div class="footer_btn" @click="closeEvaluation">{{detailsList.isEvaluated == '1' ? '关闭' : '提交'}}</div>
     </div>
   </div>
 </template>
@@ -89,9 +99,10 @@
 <script>
   import '@/components/details/details.css'
   import api from '@/api/api.js'
+  import imgView from '@/components/details/imgView.vue'
 
   export default {
-    data(){
+    data() {
       return {
         showShadow: false,
         showOrders: false,
@@ -105,86 +116,94 @@
         id: this.$route.query.id,
         cancelReason: '不想买了',
         evaluateText: '',
+        showImgView: false,
+        picUrl: []
       }
     },
     mounted() {
       //获取数据
-      api.getDetails({
-        "app_key": "app_id_1",
-        "data": {
-          "id": this.id,
-          "isEvaluated": "0",
-          "status": 0
-        },
-      }).then((res) => {
-        console.log(res.data);
-        var status = res.data.order.statusPage;
-        switch (status) {
-          case '已接单':
-            res.data.order.statusClass = 'succeed';
-            break;
-          case '已派单':
-            res.data.order.statusClass = 'complete';
-            break;
-          case '待接单':
-            res.data.order.statusClass = 'waiting';
-            break;
-          case '已取消':
-            res.data.order.statusClass = 'cancel';
-            break;
-          case '平台已取消':
-            res.data.order.statusClass = 'cancel';
-            break;
-          case '已完成':
-            res.data.order.statusClass = 'succeed';
-            break;
-          default:
-            break;
-        }
-        this.detailsList = res.data.order;
-        this.detailsPic = res.data.orderPicList;
-        this.detailsDes = res.data.OrderItemList;
-      }).catch((error) => {
-        console.log(error)
-      })
+      this.getData();
       //获取评价
       this.getEvaluate();
     },
-    computed:{ //计算属性
-      itemClasses(){
+    components: {
+      imgView
+    },
+    computed: { //计算属性
+      itemClasses() {
         var result = []; // 返回的是一个数组,用来遍历输出星星
-        var score = Math.floor(this.score * 2 ) / 2; // 计算所有星星的数量
+        var score = Math.floor(this.score * 2) / 2; // 计算所有星星的数量
         var hasDecimal = score % 1 !== 0; // 非整数星星判断
         var integer = Math.floor(score); // 整数星星判断
-        for(var i=0;i<integer;i++){ // 整数星星使用on
+        for (var i = 0; i < integer; i++) { // 整数星星使用on
           result.push("on"); // 一个整数星星就push一个CLS_ON到数组
         }
-        if(hasDecimal){ // 非整数星星使用half
+        if (hasDecimal) { // 非整数星星使用half
           result.push("half"); // 类似
-        } 
-        while(result.length < 5){// 余下的用无星星补全,使用off
+        }
+        while (result.length < 5) {// 余下的用无星星补全,使用off
           result.push("off");
         }
         return result;
       }
     },
-    methods:{
-      openOrders(){
+    methods: {
+      getData() {
+        api.getDetails({
+          "app_key": "app_id_1",
+          "data": {
+            "id": this.id,
+            "isEvaluated": "0",
+            "status": 0
+          },
+        }).then((res) => {
+          var status = res.data.order.statusPage;
+          this.picUrl = res.data.orderPicList;
+          switch (status) {
+            case '已接单':
+              res.data.order.statusClass = 'succeed';
+              break;
+            case '已派单':
+              res.data.order.statusClass = 'complete';
+              break;
+            case '待接单':
+              res.data.order.statusClass = 'waiting';
+              break;
+            case '已取消':
+              res.data.order.statusClass = 'cancel';
+              break;
+            case '平台已取消':
+              res.data.order.statusClass = 'cancel';
+              break;
+            case '已完成':
+              res.data.order.statusClass = 'succeed';
+              break;
+            default:
+              break;
+          }
+          this.detailsList = res.data.order;
+          this.detailsPic = res.data.orderPicList;
+          this.detailsDes = res.data.OrderItemList;
+        }).catch((error) => {
+          console.log(error)
+        })
+      },
+      openOrders() {
         this.showShadow = true;
         this.showOrders = true;
         document.querySelector('.details_wrap').style.overflow = 'hidden';
       },
-      closeOrders(){
+      closeOrders() {
         this.showShadow = false;
         this.showOrders = false;
         document.querySelector('.details_wrap').style.overflow = 'auto';
       },
-      openEvaluation(){
+      openEvaluation() {
         this.showShadow = true;
         this.showEvaluation = true;
         document.querySelector('.details_wrap').style.overflow = 'hidden';
       },
-      closeEvaluation(){
+      closeEvaluation() {
         if ('detailsList.isEvaluated=="1"') {
           this.showShadow = false;
           this.showEvaluation = false;
@@ -196,30 +215,30 @@
         this.showEvaluation = false;
         document.querySelector('.details_wrap').style.overflow = 'auto';
       },
-      openCode(){
+      openCode() {
         this.showShadow = true;
         this.showCode = true;
         document.querySelector('.details_wrap').style.overflow = 'hidden';
       },
-      closeCode(){
+      closeCode() {
         this.showShadow = false;
         this.showCode = false;
         document.querySelector('.details_wrap').style.overflow = 'auto';
       },
-      stars(index){
+      stars(index) {
         this.score = index + 1
       },
-      timedMsg(){
-        setTimeout(()=>{
+      timedMsg() {
+        setTimeout(() => {
           this.showCancel = false;
           this.showShadow = false;
           document.querySelector('.details_wrap').style.overflow = 'auto';
           this.$router.push({
-            path:'/orders'
+            path: '/orders'
           })
-        },1000);
+        }, 1000);
       },
-      submitCancelOrders(){
+      submitCancelOrders() {
         api.cancelOrders({
           "app_key": "app_id_1",
           "data": {
@@ -236,7 +255,7 @@
           console.log(error)
         })
       },
-      getEvaluate(){
+      getEvaluate() {
         api.getEvaluate({
           "app_key": "app_id_1",
           "data": {
@@ -253,7 +272,7 @@
           console.log(error)
         })
       },
-      setEvaluate(){
+      setEvaluate() {
         api.setEvaluate({
           "app_key": "app_id_1",
           "data": {
@@ -264,11 +283,17 @@
             "memberId": 0
           },
         }).then((res) => {
+          if (res.success) {
+            this.getData();
+          }
           console.log(res.data);
         }).catch((error) => {
           console.log(error)
         })
       },
+      toggleImgView(v) {
+        this.showImgView = v
+      }
     }
   }
 </script>

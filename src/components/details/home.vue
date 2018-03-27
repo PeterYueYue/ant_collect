@@ -3,7 +3,7 @@
     <img src="@/assets/banner.jpg" alt="" class="home_wrap_banner">
     <!-- 有订单时 -->
     <div v-if="showList">
-      <div class="home_wrap_item" v-for="item in homeList" >
+      <div class="home_wrap_item" v-for="item in homeList">
         <router-link :to="{path: '/details/', query: { id: item.id }}">
           <div class="time">下单时间：{{item.createDatePage}}<span :class="item.statusClass">{{item.statusPage}}</span></div>
           <div class="content">
@@ -27,7 +27,9 @@
     <!-- 底部footer -->
     <img src="@/assets/icon_footer.png" alt="" class="home_wrap_footer_tbg">
     <div class="home_wrap_footer">
-      <router-link to="/"><div class="footer_circle">我要<br/>回收</div></router-link>
+      <router-link to="/">
+        <div class="footer_circle">我要<br/>回收</div>
+      </router-link>
       <router-link to="/records">
         <div class="footer_left"><img src="@/assets/icon_foot.png" alt=""><span>收呗足迹</span></div>
       </router-link>
