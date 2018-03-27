@@ -2,17 +2,19 @@
   <div class="home_wrap">
     <img src="@/assets/banner.jpg" alt="" class="home_wrap_banner">
     <!-- 有订单时 -->
-    <div class="home_wrap_item" v-for="item in homeList" v-if="showList">
-      <router-link :to="{path: '/details/', query: { id: item.id }}">
-        <div class="time">下单时间：{{item.createDatePage}}<span :class="item.statusClass">{{item.statusPage}}</span></div>
-        <div class="content">
-          <img :src="item.category.icon" alt="" class="pic">
-          <div>
-            <div class="name">{{item.category.name}}</div>
-            <div class="price">预估价格：<span>￥{{item.price}}</span></div>
+    <div v-if="showList">
+      <div class="home_wrap_item" v-for="item in homeList" >
+        <router-link :to="{path: '/details/', query: { id: item.id }}">
+          <div class="time">下单时间：{{item.createDatePage}}<span :class="item.statusClass">{{item.statusPage}}</span></div>
+          <div class="content">
+            <img :src="item.category.icon" alt="" class="pic">
+            <div>
+              <div class="name">{{item.category.name}}</div>
+              <div class="price">预估价格：<span>￥{{item.price}}</span></div>
+            </div>
           </div>
-        </div>
-      </router-link>
+        </router-link>
+      </div>
     </div>
 
     <!-- 无订单时 -->

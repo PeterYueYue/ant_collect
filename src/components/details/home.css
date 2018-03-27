@@ -18,6 +18,9 @@ a {
   background: #fff;
   margin-top: 0.18rem;
 }
+.home_wrap_item:last-child {
+  margin-bottom: 1.7rem;
+}
 .home_wrap_item .time {
   font-size: 0.28rem;
 }

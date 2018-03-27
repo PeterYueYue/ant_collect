@@ -103,7 +103,7 @@
         detailsPic: {},
         detailsDes: {},
         id: this.$route.query.id,
-        cancelReason: '',
+        cancelReason: '不想买了',
         evaluateText: '',
       }
     },
@@ -172,39 +172,39 @@
       openOrders(){
         this.showShadow = true;
         this.showOrders = true;
-        document.querySelector('body').style.overflow = 'hidden';
+        document.querySelector('.details_wrap').style.overflow = 'hidden';
       },
       closeOrders(){
         this.showShadow = false;
         this.showOrders = false;
-        document.querySelector('body').style.overflow = 'auto';
+        document.querySelector('.details_wrap').style.overflow = 'auto';
       },
       openEvaluation(){
         this.showShadow = true;
         this.showEvaluation = true;
-        document.querySelector('body').style.overflow = 'hidden';
+        document.querySelector('.details_wrap').style.overflow = 'hidden';
       },
       closeEvaluation(){
         if ('detailsList.isEvaluated=="1"') {
           this.showShadow = false;
           this.showEvaluation = false;
-          document.querySelector('body').style.overflow = 'auto';
+          document.querySelector('.details_wrap').style.overflow = 'auto';
           return
         }
         this.setEvaluate();
         this.showShadow = false;
         this.showEvaluation = false;
-        document.querySelector('body').style.overflow = 'auto';
+        document.querySelector('.details_wrap').style.overflow = 'auto';
       },
       openCode(){
         this.showShadow = true;
         this.showCode = true;
-        document.querySelector('body').style.overflow = 'hidden';
+        document.querySelector('.details_wrap').style.overflow = 'hidden';
       },
       closeCode(){
         this.showShadow = false;
         this.showCode = false;
-        document.querySelector('body').style.overflow = 'auto';
+        document.querySelector('.details_wrap').style.overflow = 'auto';
       },
       stars(index){
         this.score = index + 1
@@ -213,7 +213,7 @@
         setTimeout(()=>{
           this.showCancel = false;
           this.showShadow = false;
-          document.querySelector('body').style.overflow = 'auto';
+          document.querySelector('.details_wrap').style.overflow = 'auto';
           this.$router.push({
             path:'/orders'
           })

@@ -1,6 +1,5 @@
 .records_wrap {
   width: 100%;
-  background: #fff;
 }
 .records_wrap_top {
   position: relative;
@@ -43,6 +42,7 @@
   height: 0.4rem;
 }
 .records_wrap_item ul {
+  background: #fff;
   position: relative;
   overflow: hidden;
   width: 7.5rem;
@@ -88,6 +88,7 @@
 .records_wrap_item .list_item {
   padding: 0.3rem 0.4rem 0.3rem 0.5rem;
   border-bottom: 0.01rem #dddddd solid;
+  background: #fff;
 }
 .records_wrap_item .list_item .name {
   font-size: 0.3rem;
